@@ -1,0 +1,263 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>添加用户</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add" enctype="multipart/form-data">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品名称：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="works_name" name="works_name" readonly="readonly">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者用户名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="user_name" name="user_name" style="width:70%" readonly="readonly">
+				<a href="#" style="text-decoration:none;margin-left:10px" id="userdetail">点击查看详细信息</a>
+			</div>
+			
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者所属组别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="join_group" type="radio" id="sex-1" checked value="1">
+					<label for="group-1">小学</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="join_group" value="2">
+					<label for="group-2">初中</label>
+				</div>
+				<div class="radio-box">
+					<input name="join_group" type="radio" id="sex-1" value="3">
+					<label for="group-3">高中</label>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛作品是否为指定读本：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="flag" type="radio" id="flag-1" checked>
+					<label for="flag-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="flag-2" name="flag">
+					<label for="flag-2">否</label>
+				</div>
+			</div>
+		</div> -->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">作品来源：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="flag" type="radio" id="flag-1" checked>
+					<label for="source-1">自己上传</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="flag-2" name="flag">
+					<label for="source-2">APP</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">机器得分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="machine_grade" id="machine_grade" style="width:40%" readonly="readonly">
+				<span style="margin-left:10px" >
+				  作品收藏数：
+				  <input type="text" class="input-text"  name="collectionNum" id="collectionNum" style="width:40%" readonly="readonly">
+				</span>
+			</div>
+		</div>
+		<!-- 		<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">作品收藏数：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" class="input-text" placeholder="wechat_num" name="" id="wechat_num">
+					</div>
+				</div> -->
+				<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">作品收听数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  name="listening_num" id="listening_num" style="width:40%" readonly="readonly">
+				<span style="margin-left:10px">
+				  作品转发数：
+				  <input type="text" class="input-text"  name="forwardNum" id="forwardNum" style="width:40%" readonly="readonly">
+				</span>
+			</div>
+		</div>
+	<!-- 			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">作品转发数：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+	<input type="text" class="input-text" placeholder="wechat_num" name="" id="wechat_num">
+				</div>
+			</div> -->
+			</div>
+				<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">作品点赞数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="likeNum" id="likeNum" style="width:40%" readonly="readonly">
+				<span style="margin-left:10px">
+				  人气总分：
+				  <input type="text" class="input-text"  name="popularityGrade" id="popularityGrade" style="width:40%" readonly="readonly">
+				</span>
+			</div>
+		</div>
+		<!-- 		<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">作品人气总分：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" class="input-text" placeholder="wechat_num" name="" id="wechat_num">
+					</div>
+				</div> -->
+			</div>
+				<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">专家评分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="judge_grade" id="judge_grade" style="width:40%" readonly="readonly">
+				<span style="margin-left:10px">
+				  总分：<input type="text" class="input-text"  name="totalGrade" id="totalGrade" style="width:40%" readonly="readonly">
+				</span>
+			</div>
+		<!-- </div>
+				<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">总分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="wechat_num" name="" id="wechat_num">
+			</div>
+		</div> -->
+	<!-- 	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">报名来源：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+		  <div class="radio-box">
+				<input name="source" type="radio" id="source-1" checked  value="1">
+				<label for="source-1">学校渠道</label>
+			</div>
+			<div class="radio-box">
+				<input type="radio" id="source-2" name="flag" value="2">
+				<label for="source-2">其他渠道</label>
+			</div>
+		</div>
+	</div> -->
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+var compitionworkid = sessionStorage.getItem('compitionworkid');
+ if(compitionworkid!=""){
+ 	$.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: "http://47.100.200.62:8760/v0.1/adminComPetitionWorks/"+compitionworkid+"",
+	      data: {
+	      },
+	      success: function(data){
+	      	//点击查看作者详细信息
+			 $("#userdetail").click(function(){
+			   layer_show('用户信息','../html_user/member_add.html','','300');
+			         //根据用户id询到对应的数据修改用户信息
+			    sessionStorage.setItem("serchuserid",data.data.userId);
+			     sessionStorage.setItem("btn",1);
+			 })
+	      	console.log(data);
+	      	//定义性别
+	         if(data.data.source=='1'){
+               $("#source-1").attr("checked",true);
+	        }
+	        else if(data.data.source=='2'){
+	        	 $("source-2").attr("checked",true);
+	        } 
+	        //定义身份
+	         if(data.data.join_group==1){
+               $("#group-1").attr("checked",true);
+	        }
+	        else if(data.data.join_group==2){
+	        	 $("#group-2").attr("checked",true);
+	        } 
+	        else if(data.data.join_group==3){
+	        	 $("#group-2").attr("checked",true);
+	        } 
+	       
+	        data.data.member_flag==0?$("#flag-2").attr("checked",true):$("#flag-1").attr("checked",true);
+	        $("#works_name").val(data.data.works_name);     
+	      	$("#user_name").val(data.data.user_name);
+	      	$("#machine_grade").val(data.data.machine_grade);
+	      	$("#collectionNum").val(data.data.collectionNum);
+	      	$("#listening_num").val(data.data.listening_num);
+	      	$("#forwardNum").val(data.data.forwardNum);
+	      	$("#likeNum").val(data.data.likeNum);
+	      	$("#popularityGrade").val(data.data.popularityGrade);
+	      	$("#judge_grade").val(data.data.judge_grade);
+	      	$("#totalGrade").val(data.data.totalGrade);
+	      	$("#wechat_num").val(data.data.wechat_num);
+	      	$("#remark").val(data.data.email);
+	      	$("#identity").val(data.data.identity)
+	      	$("#login").val(data.data.login)
+	      	$("#pca_id").val(data.data.pca_id)
+	      	$("#server_flag").val(data.data.serverFlag)
+	      	$("#schoolId").val(data.data.schoolId)
+	      	$("#user_img").val(data.data.user_img)
+	      	$("#pca").val(data.data.pca)
+	      	$("#clazz").val(data.data.clazz)
+	      	$("#school").val(data.data.school)
+	       }
+	 })
+ }
+ //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+
+</script> 
+
+</body>
+</html>

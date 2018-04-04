@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>读本分类管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 读本分类管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+ <div class="page-container">
+	<div id="tab-system" class="HuiTab">
+	   <div class="tabBar cl">
+			<span>读本信息</span>
+			<!-- <span id="readtype">读本分类</span> -->
+		</div>
+		<div class="tabCon">
+			<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l" id="addred"><a href="javascript:;" onclick="read_add('添加读本','readbook_add.html','','400')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增读本信息</a>
+			</span> <span class="l" id="addrecord" style="margin:0 20px"><a href="javascript:;" id='recordadd' class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 新增读本录音</a>
+			</span> <span class="l" ><a href="javascript:;" id="searchrecord" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 查询读本录音</a>
+			</span><span class="r">共有数据：<strong id="count">0</strong> 条</span> </div>
+			<div class="mt-20">
+			<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c" >
+					<th width="25"><!-- <input type="checkbox" name="" value=""> --></th>
+					<th width="70">读本名称</th>
+					<th width="60">读本封面</th>
+					<th width="80">读本热度</th>
+					<!-- <th width="90">读本排序值</th> -->
+					<th width="90">读本状态</th>
+					<th width="90">操作</th>
+				</tr>
+				<tr class="text-c" id="recordtitle" style="display:none">
+					<!-- <th width="25"><input type="checkbox" name="" value=""></th> -->
+					<th width="70">音频名称</th>
+					<th width="200">音频图标</th>
+					<th width="80">音频大小</th>
+					<th width="90">音频时长</th>
+					<th width="90">音频作者</th>
+					<th width="90">音频地址</th>
+					<th width="90">操作</th>
+				</tr>
+			</thead>
+			<tbody id="tbody1">
+				
+			</tbody>
+		   </table>
+		 </div>
+        </div>
+
+    </div>
+</div>
+<div id="page1"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//选项卡
+$("#tab-system").Huitab({
+		index:0
+	});
+//渲染页面读本列表信息
+function readlist(data){ 
+         var type=""
+		  var str = "";
+		  var status = ""
+		  var stext="";
+		  var iconfont="";
+		  var funct=""
+		  $("#count").html(data.data.totalCount);
+		  for(var i=0;i<data.data.list.length;i++){
+		  	if(data.data.list[i].status==0){
+	        	status="失效"; 
+	        	atext="恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="read_start(this,'10001')";
+
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="正常"; 
+		        	atext="失效"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="read_stop(this,'10001')";
+		        }
+		  	str+= 
+		  	"<tr class='text-c'><td><input type='radio' value='1' name='a' data-id="+data.data.list[i].textbookId+" class='radio'></td><td>"+data.data.list[i].textbookName+"</td><td>"+data.data.list[i].textbookImg+"</td><td>"+data.data.list[i].hot+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;' title="+atext+"><i class='Hui-iconfont'>"+iconfont+"</i></a> <a title='编辑'' href='javascript:;'class='edit' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+		  }
+          $("#tbody1").html(str);
+          $(".edit").click(function(event){
+          	 read_edit('编辑','readbook_add.html','4','','500');
+             sessionStorage.setItem("searchread",$(this).parent().siblings().eq(0).children().attr("data-id"));
+          })
+}
+readbook()
+//分页渲染
+function readbook(){
+	$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/textbook/all",
+		data:{
+			pageNumber:1
+		},
+		success:function(data){
+  
+			readlist(data);
+		 if(data.data.totalPage==1||data.data.totalPage==0){
+		 	$("#page1").html("")
+		 }
+		 else{
+				 	    //分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调  
+		        	$.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/textbook/all',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      },
+			      success: function(data){
+			       readlist(data)
+	         }
+	        	})   
+		          /*  $.getJSON('http://47.100.200.62:8760/v0.1/textbook/all', {pageNumber: e.curr}, function(res){  
+		            	 readlist(res);
+		            });  */
+		        }  
+		    });
+		 }
+
+
+		}
+	})
+}
+	
+/*读本信息-添加*/
+function read_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("searchread","");
+}
+/*读本信息-删除*/
+function read_stop(obj,id){
+	layer.confirm('确认删除？',function(index){
+	$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/textbook/'+$(obj).parent().siblings().eq(0).children().attr("data-id")+'/delete',
+      data: {
+      },
+      success: function(data){
+        $(obj).parent().prepend('<a onClick="reads_start(this,id)" href="javascript:;" title="无法恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已删除</span>');
+		$(obj).remove();
+		layer.msg('已删除!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+function read_start(obj,id){
+	layer.confirm('确认恢复？',function(index){
+		$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/textbook/'+$(obj).parent().siblings().eq(0).children().attr("data-id")+'/delete',
+      data: {
+      },
+      success: function(data){
+       $(obj).parent().prepend('<a onClick="ad_stop(this,id)" href="javascript:;" title="失效" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parent().prev().html('<span class="label label-success radius">正常</span>');
+		$(obj).remove();
+		layer.msg('已恢复!', {icon: 6,time:1000});
+        } 
+      });   
+		
+	});
+}
+
+/*读本信息-编辑*/
+function read_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+function readtypelist(data){
+	$("#count2").html(data.data.totalCount);
+	var type=""
+		  var str = "";
+		  var status = ""
+		  var stext="";
+		  var iconfont="";
+		  var funct=""
+		  for(var i=0;i<data.data.list.length;i++){
+		  	if(data.data.list[i].status==0){
+	        	status="失效"; 
+	        	atext="恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="readtype_start(this,'10001')";
+
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="正常"; 
+		        	atext="删除"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="readtype_stop(this,'10001')";
+		        }
+		  	str+= 
+		  	"<tr class='text-c'><td><input type='checkbox' value='1' name='' data-id="+data.data.list[i].typeId+"></td><td>"+data.data.list[i].typeName+"</td><td>"+data.data.list[i].typeImg+"</td><td>"+data.data.list[i].hot+"</td><td>"+data.data.list[i].sort+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;'' title="+atext+"'><i class='Hui-iconfont'>"+iconfont+"</i></a> <a title='编辑'' href='javascript:;'class='edit1' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+		  }
+          $("#tbody2").html(str);
+          $(".edit1").click(function(event){
+          	 read_edit('编辑','readtype_add.html','4','','500');
+             sessionStorage.setItem("searchreadtype",$(this).parent().siblings().eq(0).children().attr("data-id"));
+          })
+}
+//渲染页面读本分类信息
+  $("#readtype").click(function(){
+	$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/modelType/textbook",
+		data:{
+			pageNumber:1
+		},
+		success:function(data){
+             
+		    readtypelist(data)
+		    if(data.data.totalPage==1||data.data.totalPage==0){
+		 	$("#page1").html("")
+		 }
+		 else{
+		 	//分页
+		laypage({  
+        cont: 'page2', 
+        pages: data.data.totalPage, //通过后台拿到的总页数  
+        curr: 1, //初始化当前页  
+        jump: function(e){ //触发分页后的回调  
+        	$.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/modelType/textbook',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      },
+			      success: function(data){
+			       readtypelist(data)
+	         }
+	        	})   
+            /*$.getJSON('http://47.100.200.62:8760/v0.1/modelType/textbook', {pageNumber: e.curr}, function(res){  
+            	 readtypelist(res)
+            });  */
+        }  
+    });
+		 }
+			
+	}
+	})
+})
+
+/*读本分类信息-添加*/
+function readtype_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("searchreadtype","");
+}
+/*读本分类信息-删除*/
+function readtype_stop(obj,id){
+	layer.confirm('确认失效？',function(index){
+	$.ajax({
+      type: 'delete',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/modelType/'+$(obj).parent().siblings().eq(0).children().attr("data-id"),
+      data: {
+      },
+      success: function(data){
+        $(obj).parent().prepend('<a onClick="readtype_start(this,id)" href="javascript:;" title="恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已失效</span>');
+		$(obj).remove();
+		layer.msg('已失效!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+
+/*读本类别信息-编辑*/
+function readtype_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//新增录音
+$("#recordadd").click(function(){
+		var anum=0;
+	var adataid="";
+	$(".radio").each(function(index, el){
+	if($(this).prop("checked")){
+		anum++;
+		adataid=$(this).attr('data-id');
+	 }
+  })
+	if(anum!=0){
+      sessionStorage.setItem("searchrecord","");
+      sessionStorage.setItem("serchcompnum",adataid);
+      sessionStorage.setItem("relationType",'读本');
+      console.log(adataid)
+      record_add('添加读本录音','readrecord_add.html','','400')
+	}
+	if(anum==0){
+	 	layer.msg("请先选择读本");
+	 }
+})
+//查询录音
+$("#searchrecord").click(function(event) {
+	var anum=0;
+	var adataid="";
+	$(".radio").each(function(index, el){
+	if($(this).prop("checked")){
+		anum++;
+		adataid=$(this).attr('data-id');
+	 }
+  })
+	if(anum!=0)
+	 {
+	   sessionStorage.setItem("serchcompnum",adataid);
+
+	 $("#recordtitle").show();
+	 $("#recordtitle").siblings().hide();
+	 /*
+	 $("#addred").css({"display":"none"});
+	 $("#addrecord").css({"display":"block"});*/
+        $.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/audio/relation",
+		data:{
+			pageNumber:1,
+			relationId:adataid
+		},
+		success:function(data){
+             console.log(data);
+		    readrecordlist(data)
+		    if(data.data.totalPage==0||data.data.totalPage==1){
+		    	$("#page1").html("");
+		    }
+		    else{
+		    				//分页
+			laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调  
+	            $.getJSON('http://http://47.100.200.62:8760/v0.1/audio/relation', {pageNumber: e.curr,relationId:adataid}, function(res){  
+	            	 readrecordlist(res)
+	            });  
+	        }  
+	        });
+			    }
+	  }
+	})
+	}
+	 if(anum==0){
+	 	layer.msg("请先选择读本");
+	 }
+})
+function readrecordlist(data){
+	console.log(data);
+	$("#tbody1").html("")
+	 $("#count").html(data.data.totalCount);
+	var str1="";
+	var funct="record_stop(this,'10001')";
+	for(var i=0;i<data.data.list.length;i++){
+		  str1+=" <tr class='text-c'><td class='checkedbox'><input type='checkbox' value='1' name='' data-id="+data.data.list[i].audioId+" ></td><td>"+data.data.list[i].audioTitle+"</td><td>"+data.data.list[i].audioImg+"</td><td>"+data.data.list[i].audioSize+"</td><td>"+data.data.list[i].audioTime+"</td><td>"+data.data.list[i].audioAuthor+"</td><td>"+data.data.list[i].relationUrl+"</td><td class='td-manage'><a title='编辑' href='javascript:;'class='edit3' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+	}
+	$("#tbody1").html(str1);
+	$(".checkedbox").hide();
+	$(".edit3").click(function(event){
+          	 record_edit('编辑','readrecord_add.html','4','','500');
+             sessionStorage.setItem("searchrecord",$(this).parent().siblings().eq(0).children().attr("data-id"));
+     })
+}
+/*录音-删除*/
+/*function record_stop(obj,id){
+	layer.confirm('确认删除录音？删除后无法恢复。',function(index){
+	$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/audio/relation/delete',
+      data: {
+      	audioId: $(obj).parent().siblings().eq(0).children().attr("data-id")
+      },
+      success: function(data){
+        $(obj).parent().prepend('<a href="javascript:;" title="无法恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		layer.msg('已删除!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}*/
+/*课文录音-添加*/
+function record_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("readrecord","");
+}
+/*录音-编辑*/
+function record_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+</body>
+</html>

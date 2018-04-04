@@ -1,0 +1,172 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>修改上传作品信息</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="hidden" class="input-text" value="" placeholder="" id="user_Id" name="user_Id">
+			<input type="hidden" class="input-text" value="" placeholder="" id="sample_Id" name="sample_Id">
+			<input type="hidden" class="input-text" value="" placeholder="" id="record_Id" name="record_Id">
+			<input type="text" class="input-text isnull" value="" placeholder="" id="work_Introduce" name="work_Introduce" required="required">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">配图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="imageurl" name="imageurl" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">录音时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="单位s" id="record_Time" name="record_Time">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">录制时间</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="record_Date" class="input-text Wdate" style="width:120px;" value="2018-02-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">提交时间</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="submitDate" class="input-text Wdate" style="width:120px;" value="2018-02-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">系统评分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="machine_Grade" name="machine_Grade">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否删除：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-1" checked>
+					<label for="status-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="status">
+					<label for="status-2">否</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+var searchsound = sessionStorage.getItem('searchsound');
+ console.log(searchsound)
+ 	 $.ajax({
+	      type: 'get',
+	      url: 'http://47.100.200.62:8760/v0.1/adminSoundRecord/'+searchsound+'',
+	      data:{
+	      },
+	      success: function(data){
+	      	data.data.status==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	      	var record_date = data.data.record_Date.split(' ');
+	      	var submitDate = data.data.submitDate.split(' ')
+	      	console.log(data);
+	        $("#imageurl").val(data.data.imageurl);
+	        $("#machine_Grade").val(data.data.machine_Grade);     
+	      	$("#user_id").val(data.data.user_id);
+	      	$("#user_name").val(data.data.user_name);
+	      	$("#record_Date").val(record_date[0]);
+	      	$("#record_Id").val(data.data.record_Id);
+	      	$("#record_Time").val(data.data.record_Time);     
+	      	$("#submitDate").val(submitDate[0]);
+	      	$("#user_Id").val(data.data.user_Id);
+	      	$("#work_Introduce").val(data.data.work_Introduce);
+	      	$("#sample_Id").val(data.data.sample_Id)
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+			//录音状态
+			var astatus = "";
+			if($("#status-1").prop('checked')==true){
+				astatus= 1
+			}
+		    if($("#status-2").prop('checked')==true){
+				astatus= 0
+			}
+		  	$.ajax({
+		      type: 'post',
+		      url: 'http://47.100.200.62:8760/v0.1/adminSaveSoundRecord',
+		      data: {
+		    imageurl:$("#imageurl").val(),
+	        machine_Grade:$("#machine_Grade").val(),    
+	      	user_id:$("#user_id").val(),
+	      	user_name:$("#user_name").val(),
+	      	record_Date:$("#record_Date").val(),
+	      	record_Id:$("#record_Id").val(),
+	      	record_Time:$("#record_Time").val(),   
+	      	submitDate:$("#submitDate").val(),
+	      	user_Id:$("#user_Id").val(),
+	      	work_Introduce:$("#work_Introduce").val(),
+	      	sample_Id:$("#sample_Id").val(),
+	      	status:astatus
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		           layer.msg("修改成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+ })
+
+</script> 
+
+</body>
+</html>

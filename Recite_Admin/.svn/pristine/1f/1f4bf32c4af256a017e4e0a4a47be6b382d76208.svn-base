@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+	 var i="15.56";
+	var b=20.03;
+	var c=parseInt(i)+parseInt(b);
+	var d=parseInt(i+b)
+	console.log(d,c)
+
+	</script>
+</body>
+</html>

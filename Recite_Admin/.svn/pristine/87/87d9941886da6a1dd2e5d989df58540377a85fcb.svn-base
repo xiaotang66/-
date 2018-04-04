@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>作品信息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 作品信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c"> 
+		<input type="text" value="" class="input-text" style="width:250px" placeholder="输入广告或活动名称" id="serach-text" name="">
+		<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 搜作品信息</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">  <span class="r">共有数据：<strong id="count">0</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="40">ID</th>
+				<th width="70">作品名称</th>
+				<th width="60">参赛作者</th>
+				<th width="90">录制时间</th>
+				<th width="90">上传时间</th>
+				<th width="90">系统评分</th>
+				<th width="100">当前状态</th>
+				<th width="90">操作</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			<tr class="text-c">
+				<td><input type="checkbox" value="1" name=""></td>
+				<td>1</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td ></td>
+				<td class="td-status"><span class="label label-success radius">有效</span></td>
+				<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="失效"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" class="ml-5" style="text-decoration:none" onclick="member_edit('编辑用户上传作品信息','work_add.html','800','500')"><i class="Hui-iconfont">&#xe6df;</i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="page1"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//渲染所有作品信息列表
+function worklist(data){
+	
+   var status="";
+	        var stext="";
+	        var iconfont=""
+	         var str="";
+	         var sex = ""
+	         var funct=""
+	         //$("#count").html(data.data.length);
+	        for(var i=0;i<data.data.list.length;i++){
+	        	//日期格式处理
+	        	var record_date = data.data.list[i].record_date.split(' ');
+	             var submitDate = data.data.list[i].submitDate.split(' ')
+	        	//操作小图标的显示
+	          if(data.data.list[i].status==0){
+	        	status="已驳回"; 
+	        	atext="恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="work_start(this,'10001')";
+
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="正常"; 
+		        	atext="驳回"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="work_stop(this,'10001')";
+		        }
+	        	 str+="<tr class='text-c'><td><input type='checkbox' value='1' name='' data-id="+data.data.list[i].works_id+"></td><td>1</td><td >"+data.data.list[i].works_name+"</td><td>"+data.data.list[i].user_name+"</td><td>"+record_date[0]+"</td><td>"+submitDate[0]+"</td><td>"+data.data.list[i].machine_grade+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;'' title="+atext+"'><i class='Hui-iconfont'>"+iconfont+"</i></a> <a title='编辑'' href='javascript:;'class='edit' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        //点击编辑
+		         $(".edit").click(function(event) {
+		         	sessionStorage.setItem("searchwork",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		            work_edit($(this).parent().siblings().eq(2).html(),'work_add.html','4','','500');
+		           //用于用户编辑
+		          
+		    })
+      }
+        $.ajax({
+	      type: 'get',
+	      url: 'http://47.100.200.62:8760/v0.1/adminComPetitionWorks',
+	      success: function(data){
+	      	worklist(data)
+	         //分页
+			laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调  
+	            $.getJSON('http://47.100.200.62:8760/v0.1/adminComPetitionWorks', {pageNumber: e.curr}, function(res){  
+
+	            	 worklist(res);
+	            });  
+	        }  
+	    });
+		      
+	      }  
+	})
+/*作品信息-删除*/
+function work_stop(obj,id){
+	layer.confirm('确认要驳回吗？',function(index){
+	$.ajax({
+      type: 'get',
+      url: 'http://47.100.200.62:8760/v0.1/rejectComPetitionWorks/'+$(obj).parent().siblings().eq(0).children().attr("data-id")+'',
+      data: {
+      },
+      success: function(data){
+
+        $(obj).parent().prepend('<a onClick="work_start(this,id)" href="javascript:;" title="无法恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已驳回</span>');
+		$(obj).remove();
+		layer.msg('已驳回!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+
+
+/*//根据广告名称查询广告
+$("#search").click(function(){
+	$.ajax({
+		type:"get",
+		url:"http://47.100.200.62:8760/v0.1/ad/name",
+		data:{
+           adTitle:$("#serach-text").val()
+		},
+		success:function(data){
+          var type=""
+		  var str = "";
+		  var status = ""
+		  var stext="";
+		  var iconfont="";
+		  var funct=""
+		  for(var i=0;i<data.data.length;i++){
+		  	if(data.data[i].adType==1){
+              type ="广告"
+		  	}
+		  	if(data.data[i].adType==2){
+              type ="活动"
+		  	}
+		  	if(data.data[i].adStatus==0){
+	        	status="失效"; 
+	        	atext="无法恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="ad_start(this,'10001')";
+
+		        }
+		         if(data.data[i].adStatus==1){
+		        	status="正常"; 
+		        	atext="删除"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="ad_stop(this,'10001')";
+		        }
+		  	str+= 
+		  	"<tr class='text-c'><td><input type='checkbox' value='1' name='' data-id="+data.data[i].adId+"></td><td>1</td><td>"+data.data[i].adTitle+"</td><td>"+type+"</td><td>"+data.data[i].adUrl+"</td><td>"+data.data[i].startDate+"</td><td >"+data.data[i].endDate+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;'' title="+atext+"'><i class='Hui-iconfont'>"+iconfont+"</i></a> <a title='编辑'' href='javascript:;'class='edit' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+		  }
+          $("#tbody").html(str);
+          $(".edit").click(function(event){
+          	 ad_edit('编辑','advert_add.html','4','','500');
+             sessionStorage.setItem("serchad",$(this).parent().siblings().eq(0).children().attr("data-id"));
+          })
+		}
+	})
+})*/
+/*广告-添加*/
+function ad_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("serchad","");
+}
+/*广告-恢复*/
+/*function ad_start(obj,id){
+	layer.confirm('确认恢复？',function(index){
+		$.ajax({
+      type: 'post',
+      url: '',
+      data: {
+        user_Id:sessionStorage.getItem('userid'),
+        status:1
+      },
+      success: function(data){
+       $(obj).parent().prepend('<a onClick="ad_stop(this,id)" href="javascript:;" title="删除" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parent().prev().html('<span class="label label-success radius">正常</span>');
+		$(obj).remove();
+		layer.msg('已启用!', {icon: 6,time:1000});
+        } 
+      });   
+		
+	});
+}*/
+/*用户-编辑*/
+function work_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

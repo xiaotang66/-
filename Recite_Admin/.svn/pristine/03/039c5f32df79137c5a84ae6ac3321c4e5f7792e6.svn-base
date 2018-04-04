@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>身份认证管理</title>
+</head>
+<body id="body">
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 身份认证审核 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20">  <span class="r">共有数据：<strong id="count">0</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+		
+				<th width="70">姓名</th>
+				<th width="60">职称</th>
+				<th width="80">手机号</th>
+				<th width="100">学校</th>
+				<th width="90">证件信息</th>
+				<th width="90">备注</th>
+				<th width="90">状态</th>
+				<th width="90">操作</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="page1"></div>
+<style>
+ .wait{background-color:blue;}
+ .img{position:absolute;top:50%;left:50%;width:200px;height:200px;margin-left:-100px;margin-top:-100px;}
+ .img img{width:200px;height:200px;display: block}
+</style>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+//渲染所有身份认证信息列表
+function authlist(data){
+   var status="";
+	        var stext="";
+	         var str="";
+	         var sex = ""
+	         var func1="auth_start(this,'10001')";
+	         var func2="auth_stop(this,'10001')"
+	         $("#count").html(data.data.totalCount);
+	        for(var i=0;i<data.data.list.length;i++){
+	        	//操作小图标的显示
+	          if(data.data.list[i].status==0){
+	        	status="未审核"; 
+	        	stext="wait";
+
+		        }
+		        if(data.data.list[i].status==1){
+	        	status="审核通过"; 
+	        	stext="label-success";
+
+		        }
+		         if(data.data.list[i].status==2){
+		        	status="审核驳回"; 
+		        	stext="label-default";
+		        }
+		        if(data.data.list[i].remark==null){
+		        	data.data.list[i].remark=""
+		        }
+	        	 str+="<tr class='text-c'><td class='checkbox'><input type='checkbox' value='1' name='' data-id="+data.data.list[i].authId+" data-user="+data.data.list[i].userId+"></td><td >"+data.data.list[i].userRealname+"</td><td>"+data.data.list[i].qualifications+"</td><td>"+data.data.list[i].phone+"</td><td>"+data.data.list[i].schoolId+"</td><td>"+data.data.list[i].testifyFile+"</td><td>"+data.data.list[i].remark+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'> <a style='text-decoration:none' href='javascript:;' title='查看' class='look'> 查看 </a>&nbsp;<a style='text-decoration:none' onClick="+func1+" href='javascript:;' title='通过'><i class='Hui-iconfont'>&#xe615;</i></a> <a style='text-decoration:none' onClick="+func2+" href='javascript:;' title='驳回'><i class='Hui-iconfont'>&#xe631;</i></a></td></tr></td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        $(".checkbox").hide();
+	        $(".look").click(function(){
+	        	sessionStorage.setItem("src","http://zhihui-reader.oss-cn-shanghai.aliyuncs.com/img/"+$(this).parent().siblings().eq(5).html());
+	        	console.log($(this).parent().siblings().eq(5).html())
+	        	layer_show('查看资料','auth_show.html','','400')
+	        })
+	       /* $(".look").click(function(){
+	        	$("#body").append("<div><img src="+1520733558946.png+"></div>")
+	            //layer_show('新增通知','message_add.html','','400')
+	        })*/
+      }
+        $.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/adminTeacherAuth',
+	      data:{
+	      	pageNumber:1
+	      },
+	      success: function(data){
+	      	console.log(data);
+	      	 authlist(data)
+	      	 if(data.data.totalPage==1||data.data.totalPage==0){
+	      	 	$("#page1").html("");
+	      	 }
+	      	 else{
+	      	 		 //分页
+					laypage({  
+			        cont: 'page1', 
+			        pages: data.data.totalPage, //通过后台拿到的总页数  
+			        curr: 1, //初始化当前页  
+			        jump: function(e){ //触发分页后的回调 
+				         $.ajax({
+		        	  type: 'get',
+				      url: 'http://47.100.200.62:8760/v0.1/adminTeacherAuth/',
+				      headers:{"Authorization":getCookie('token')},
+				      data:{
+				      	pageNumber:e.curr
+				      },
+				      success: function(data){
+				     	authlist(data);
+		             }
+		        	}) 
+			            /*$.getJSON('http://47.100.200.62:8760/v0.1/adminTeacherAuth/', {pageNumber: e.curr}, function(res){  
+			            	authlist(res);
+			            });  */
+			        }  
+			    });
+	      	 }
+
+		      
+	      }  
+	})
+/*身份认证-驳回*/
+function auth_stop(obj,id){
+	layer.confirm('确认驳回申请？',function(index){
+	$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/saveAdminTeacherAuth/',
+      data: {
+        authId:$(obj).parent().siblings().eq(0).children().attr("data-id"),
+        status:2
+      },
+      success: function(data){
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">审核驳回</span>');
+		 layer.msg('审核驳回!',{icon: 5,time:1000});
+
+		sessionStorage.setItem("teacherid",$(obj).parent().siblings().eq(0).children().attr("data-user"));
+		 layer_show('驳回原因','auth_add.html','800','300');
+        } 
+      });   
+	});
+}
+/*审核-通过*/
+function auth_start(obj,id){
+	layer.confirm('确认通过申请？',function(index){
+		$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/saveAdminTeacherAuth',
+      data: {
+      	authId:$(obj).parent().siblings().eq(0).children().attr("data-id"),
+        status:1
+      },
+      success: function(data){
+		$(obj).parent().prev().html('<span class="label label-success radius">已通过</span>');
+		layer.msg('审核通过!',{icon: 6,time:1000});
+		}
+      }); 
+       $.ajax({ 
+		  	url: 'http://47.100.200.62:8760/v0.1/msg',
+    	    type: 'POST', 
+    	    data:{
+              msgTitle:"身份认证审核通知",
+              msgDetail:"您的教师身份认证审核已通过！",
+              userId:$(obj).parent().siblings().eq(0).children().attr("data-user")
+    	    },
+    	    success:function(data){
+              console.log(data);
+    	    }
+    	})  
+		
+	});
+}
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+</body>
+</html>

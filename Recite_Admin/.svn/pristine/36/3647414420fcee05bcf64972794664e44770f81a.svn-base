@@ -1,0 +1,247 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增课本分类</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal" id="form1" enctype="multipart/form-data" name="form1">
+		<div class="row cl" id="hidden">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>课本范文分类名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<!-- <input type="hidden" class="input-text" value="" placeholder="" id="totalCount" name="totalCount"> -->
+			<!-- <input type="hidden" class="input-text" value="" placeholder="" id="typeId" name="typeId"> -->
+			<input type="text" class="input-text isnull" value="" placeholder="" id="typeName" name="typeName">
+			</div>
+		</div>
+<!-- 		<div class="row cl">
+	<label class="form-label col-xs-4 col-sm-3">读本范文分类封面：</label>
+	<div class="formControls col-xs-8 col-sm-9">
+		<input type="text" class="input-text isnull" value="http://www.haorooms.com/post/input_file_leixing" placeholder="" id="typeImg" name="typeImg">
+	</div>
+</div> -->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3 ">课本分类封面：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				 <span class="btn-upload form-group">
+				 <input class="input-text upload-url" type="text" name="typeImg" id="typeImg" readonly style="width:200px" > 
+				<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择文件</a> 
+				<input type="file" multiple name="file" class="input-file" >
+				</span>
+		    </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">读本范文分类热度：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="hot" name="hot" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">课本范文分类排序值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="sort" name="sort" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">课本范文分类状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="status" type="radio" id="status-1" value="1" checked>
+					<label for="status-1">生效</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="status" value="0">
+					<label for="status-2">失效</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+ var searchtexttype = sessionStorage.getItem('searchtexttype');
+ if(searchtexttype!=""){
+ 	$("#hidden").append('<input type="hidden" class="input-text" value="" placeholder="" id="typeId" name="typeId"><input type="hidden" class="input-text" value="" placeholder="" id="totalCount" name="totalCount"> ')
+ 	 $.ajax({
+	      type: 'get',
+	      headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/classBookType/'+searchtexttype+'',
+	      data:{
+	      	
+	      },
+	      success: function(data){
+
+	        data.data.status==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	        $("#typeId").val(searchtexttype);     
+	      	$("#typeName").val(data.data.typeName);
+	      	$("#typeImg").val(data.data.typeImg);
+	      	$("#hot").val(data.data.hot);
+	      	$("#sort").val(data.data.sort);
+	      	$("#totalCount").val(data.data.totalCount);
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+					 if($("#typeName").val()==""||reg.test($("#typeName").val()))
+	     	{
+	     		layer.msg("课本名称不能为空")
+	     	}
+         else{
+			/*//课本分类状态
+			var astatus = "";
+			if($("#status-1").prop('checked')==true){
+				astatus= 1
+			}
+		    if($("#status-2").prop('checked')==true){
+				astatus= 0
+			}*/
+		  	/*$.ajax({
+		      type: 'put',
+		      url: 'http://47.100.200.62:8760/v0.1/classBookType/'+searchtexttype+'',
+		      data: { 
+		        typeId:$("#typeId").val(),       
+			    typeName:$("#typeName").val(),
+			    typeImg:$("#typeImg").val(),
+			    sort:$("#sort").val(),
+			    hot:$("#hot").val(),
+			    status:astatus,
+			    totalCount:$("#totalCount").val()
+		      },
+		      success: function(data){
+
+		        if(data.success==true){
+		           layer.msg("修改成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });*/
+		 	$.ajax({ 
+    	    url: 'http://47.100.200.62:8760/v0.1/classBookType/'+searchtexttype+'',
+    	    headers:{"Authorization":getCookie('token')},
+    	   type: 'POST', 
+    	   cache: false, 
+    	   data: new FormData($('#form1')[0]), 
+    	   //data:$("#form1").serialize(),
+    	   processData: false,
+    	   contentType: false,
+    	   success:function(data){
+    	   	console.log(data)
+              if(data.success==true){
+		        	layer.msg("更新成功",{icon:1,time:1000})
+		        	   setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },3000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+    	   }
+    	  })
+         }
+ })
+ }
+ if(searchtexttype=="")
+ {
+   var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+		 if($("#typeName").val()==""||reg.test($("#typeName").val()))
+	     	{
+	     		layer.msg("课本分类名称不能为空")
+	     	}
+         else{
+
+		 	$.ajax({ 
+    	    url: 'http://47.100.200.62:8760/v0.1/classBookType/',
+    	    headers:{"Authorization":getCookie('token')},
+    	   type: 'POST', 
+    	   cache: false, 
+    	   data: new FormData($('#form1')[0]), 
+    	   //data:$("#form1").serialize(),
+    	   processData: false,
+    	   contentType: false,
+    	   success:function(data){
+              if(data.success==true){
+		        	layer.msg("新增成功",{icon:1,time:1000})
+		        	   setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },3000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+    	   }
+    	  })
+         }
+
+ })
+ }
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+    
+</script> 
+
+</body>
+</html>

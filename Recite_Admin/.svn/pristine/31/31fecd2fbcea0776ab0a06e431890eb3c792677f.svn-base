@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>作品信息管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 班级信息管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+   <div class="cl pd-5 bg-1 bk-gray mt-20">
+     类别：
+		<span class="select-box inline" style="margin-right:10px">
+		<select name="" class="select" id="aslect">
+		    <option value="classname">班级</option>
+			<option value="teachername">老师</option>
+		</select>
+		</span>
+	<input type="text" value="" class="input-text" style="width:250px" placeholder="输入信息" id="serach-text" name="">
+		<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 搜班级</button>
+	  <span class="r">共有数据：<strong id="count">0</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="70">班级名称</th>
+				<th width="60">老师名称</th>
+				<th width="100">所在城市</th>
+				<th width="90">所属学校</th>
+				<th width="90">所属年级</th>
+				<th width="90">邀请码</th>
+				<th width="90">允许新同学加入</th>
+				<th width="100">班级状态</th>
+				<th width="90">操作</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="page1"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//班级查询
+$("#search").click(function(){
+	if($("#aslect").val()=='classname'){
+       $.ajax({
+       	type:"get",
+       	 headers:{"Authorization":getCookie('token')},
+       	url:"http://47.100.200.62:8760/v0.1/class",
+       	data:{
+       		pageNumber:1,
+       		clazzName:$("#serach-text").val()
+       	},
+       	success:function(data){
+       		console.log(data)
+       		classlist(data)
+	         if(data.data.totalPage==1||data.data.totalPage==0){
+	      	 	$("#page1").html("");
+	      	 }
+	      	 else{
+	      	 	//分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调  
+		        	$.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/class',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr,
+			      	clazzName:$("#serach-text").val()
+			      },
+			      success: function(data){
+			      	classlist(data);
+	         }
+	        	})
+		           /* $.getJSON('http://47.100.200.62:8760/v0.1/class', {pageNumber: e.curr,clazzName:$("#serach-text").val()}, function(res){  
+		            	classlist(res);
+		            });*/  
+		        }  
+		    });
+	      	 }
+       	 }
+       })
+	}
+	if($("#aslect").val()=='teachername'){
+		console.log(213123)
+        $.ajax({
+       	type:"get",
+       	 headers:{"Authorization":getCookie('token')},
+       	url:"http://47.100.200.62:8760/v0.1/class",
+       	data:{
+       		pageNumber:1,
+       		teacherName:$("#serach-text").val()
+       	},
+       	success:function(data){
+       		console.log(data)
+       		 classlist(data)
+	         if(data.data.totalPage==1||data.data.totalPage==0){
+	      	 	$("#page1").html("");
+	      	 }
+	      	 else{
+	      	 	//分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调 
+		           $.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/class',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr,
+			      	teacherName:$("#serach-text").val()
+			      },
+			      success: function(data){
+			      	classlist(data);
+	         }
+	        	}) 
+/*		            $.getJSON('http://47.100.200.62:8760/v0.1/class', {pageNumber: e.curr,teacherName:$("#serach-text").val()}, function(res){  
+		            	classlist(res);
+		            });  */
+		        }  
+		    });
+	       }
+       	 }
+       })
+	}
+})
+//渲染所有录音信息列表
+function classlist(data){
+	//通过id获取地区
+            var status="";
+	        var stext="";
+	        var iconfont=""
+	         var str="";
+	         var sex = "";
+	         var funct="";
+	         var school="";
+	         var allow_join=""
+	         $("#count").html(data.data.totalCount);
+	        for(var i=0;i<data.data.list.length;i++){
+	        	//操作小图标的显示
+	          if(data.data.list[i].status==0){
+	        	status="已禁用"; 
+	        	atext="恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="class_start(this,'10001')";
+
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="正常"; 
+		        	atext="禁用"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="class_stop(this,'10001')";
+		        }
+		        if(data.data.list[i].schoolname==null||data.data.list[i].schoolname=="请选择"){
+                   data.data.list[i].schoolname=""
+		        }
+		        if(data.data.list[i].pcaname==null||data.data.list[i].pcaname=="请选择-请选择-请选择"){
+                   data.data.list[i].pcaname=""
+		        }
+		        if(data.data.list[i].allow_join==0){
+		        	allow_join="不允许"
+		        }
+		        if(data.data.list[i].allow_join==1){
+		        	allow_join="允许"
+		        }
+
+
+
+	        	 str+="<tr class='text-c'><td class='checkbox'><input type='checkbox' value='1' name='' data-id="+data.data.list[i].class_id+"></td><td >"+data.data.list[i].class_name+"</td><td>"+data.data.list[i].teacher_name+"</td><td>"+data.data.list[i].pcaname+"</td><td>"+data.data.list[i].schoolname+"</td><td>"+data.data.list[i].grade+"</td><td>"+data.data.list[i].invite_code+"</td><td>"+allow_join+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;' title="+atext+"><i class='Hui-iconfont'>"+iconfont+"</i></a> <a title='编辑' href='javascript:;'class='edit' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        $(".checkbox").hide();
+	        //点击编辑
+		         $(".edit").click(function(event) {
+		         	sessionStorage.setItem("searchclass",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		            class_edit($(this).parent().siblings().eq(2).html(),'class_add.html','4','','500');
+		        
+		    })
+      }
+        $.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/class',
+	      data:{
+	      	pageNumber:1
+	      },
+	      success: function(data){
+	      	console.log(data);
+	         classlist(data)
+	         if(data.data.totalPage==1){
+	      	 	$("#page1").html("");
+	      	 }
+	      	 else{
+	      	 	//分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调 
+		           $.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/class',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      },
+			      success: function(data){
+			      	classlist(data);
+	         }
+	        	})
+	/*	            $.getJSON('http://47.100.200.62:8760/v0.1/class', {pageNumber: e.curr}, function(res){  
+		            	classlist(res);
+		            });  */
+		        }  
+		    });
+	      	 }
+
+		      
+	      }  
+	})
+/*班级-删除*/
+function class_stop(obj,id){
+	layer.confirm('确认禁用班级？',function(index){
+	$.ajax({
+      type: 'delete',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/class/'+$(obj).parent().siblings().eq(0).children().attr("data-id")+'',
+      data: {
+      },
+      success: function(data){
+        $(obj).parent().prepend('<a onClick="sound_start(this,id)" href="javascript:;" title="无法恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+		$(obj).remove();
+		layer.msg('已禁用!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+
+/*班级-编辑*/
+function class_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+</body>
+</html>

@@ -1,0 +1,41 @@
+//设置cookie
+function setCookie(_name,val,expires){
+   var d = new Date();
+   d.setDate(d.getDate()+expires);
+   document.cookie=_name+"="+val+";path=/;"+"expires="+d;
+}
+//获取cookie
+function getCookie(_name)
+{
+   var cookie = document.cookie;
+   var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+   for(var i=0;i<arr.length;i++)
+   {
+      var newarr = arr[i].split("=");
+      
+      if(newarr[0]== _name)
+      {
+         return newarr[1];
+         
+      }
+   }
+}
+//删除cookie
+function removeCookie(_name,val){
+ setCookie(_name,val,-1); 
+}
+//b封装document.getElementByclassName 需要定义一个变量获取
+function getClassName(aparent,aclass)
+{
+   var ochild = document.getElementsByTagName('*');
+   var reg = new RegExp('\\b'+aclass+'\\b','i');
+   var arry =[];
+   for(var i =0;i<ochild.length;i++)
+   {
+      if(reg.test(ochild[i].className))
+      {
+          arry.push(ochild[i]);
+      }
+   }
+   return arry;
+}

@@ -1,0 +1,406 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>编辑参赛人信息</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal" id="form1" name="form1" >
+		<div class="row cl" id="hidden">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>参赛者姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="user_realname" name="user_realname">
+			<!-- <input type="hidden" class="input-text" value="" placeholder="" id="user_id" name="user_id"> -->
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者手机号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="mobile" name="mobile" >
+			</div>
+		</div>
+	 <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">参赛者身份证号码：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="num" name="id_card_no">
+		</div>
+	</div> 
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder=""  id="email">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛QQ号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="qq" name="qq">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者学校所属组别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="join_group" type="radio" id="school-1" checked value="1">
+					<label for="school-1">小学</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="school-2" name="join_group" value="2">
+					<label for="school-2">初中</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="school-2" name="join_group" value="3">
+					<label for="school-2">高中</label>
+				</div>
+			</div>
+		</div>
+		
+        <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者所在地区：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			   <span>
+			    省-
+					<select id="province" style="width:100px;">
+					   
+					</select>
+				</span>
+				<span style="padding:0 20px" style="width:100px;">
+			    市-
+					<select id="city" style="width:100px;">
+					  
+					</select>
+				</span>
+				<span>
+			    区-
+					<select id="district" style="width:100px;" name="pca_id">
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛者所在学校：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<select id="school" style="width:100px;" name="school_id" id="school">
+					   
+				</select>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+ var serapplyid = sessionStorage.getItem('serapplyid');
+  var serchcompnum = sessionStorage.getItem('serchcompnum')
+ console.log(serchcompnum)
+ //改变省的时候市和区改变
+ $("#province").change(function(event) {
+ 	$("#city").html("");
+ 	$("#district").html("");
+ 	var prarentid=$(this).val();
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	 headers:{"Authorization":getCookie('token')},
+ 	type:"get",
+ 	data:{
+ 		parentPca:prarentid
+ 	},
+ 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#city").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      }
+	       $.ajax({
+		 	url:"http://47.100.200.62:8760/v0.1/area/",
+		 	 headers:{"Authorization":getCookie('token')},
+		 	type:"get",
+		 	data:{
+		 		parentPca:suntid
+		 	},
+		 	success:function(data){
+		      for(var i=0;i<data.data.length;i++)
+		      {
+		      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+		      	  pcaid = ($("#district").val());
+		      	  school(pcaid)
+		      }
+
+		 	}
+		 })
+
+	 	}
+	 })
+
+ });
+ //改变市的时候区发生改变
+ $("#city").change(function(event) {
+  	$("#district").html("");
+ 	var prarentid=$(this).val();
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	 headers:{"Authorization":getCookie('token')},
+ 	type:"get",
+ 	data:{
+ 		parentPca:prarentid
+ 	},
+ 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      	 pcaid = ($("#district").val());
+	      	  school(pcaid)
+	      }
+	 	}
+	 })
+ });
+ //改变区的时候区发生改变
+ $("#district").change(function(event) {
+	  pcaid = $(this).val();
+	   school(pcaid)
+ });
+ //遍历所有省的信息
+ area();
+ function area(){
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	 headers:{"Authorization":getCookie('token')},
+ 	type:"get",
+ 	data:{
+ 		parentPca:0
+ 	},
+ 	success:function(data){
+ 		var prarentid=data.data[0].pcaId;
+      for(var i=0;i<data.data.length;i++)
+      {
+      	 $("#province").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+      }
+	   $.ajax({
+	 	url:"http://47.100.200.62:8760/v0.1/area/",
+	 	 headers:{"Authorization":getCookie('token')},
+	 	type:"get",
+	 	data:{
+	 		parentPca:prarentid
+	 	},
+	 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#city").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      }
+
+		    $.ajax({
+		 	url:"http://47.100.200.62:8760/v0.1/area/",
+		 	 headers:{"Authorization":getCookie('token')},
+		 	type:"get",
+		 	data:{
+		 		parentPca:suntid
+		 	},
+		 	success:function(data){
+		      for(var i=0;i<data.data.length;i++)
+		      {
+		      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+		      }
+		        pcaid = ($("#district").val());
+		        school(pcaid)
+		 	}
+	 })
+	 	}
+	 })
+
+ 	}
+ })
+ }
+ if(serapplyid==""){
+   //点击提交新增报名信息
+     $("#btn").click(function(event){
+     	$.ajax({
+   	   type:"post",
+   	    headers:{"Authorization":getCookie('token')},
+   	   url:"http://47.100.200.62:8760/v0.1/competition/"+serchcompnum+"/join",
+   	   cache: false, 
+       data: new FormData($('#form1')[0]), 
+       processData: false,
+       contentType: false,
+    	success:function(data){
+    	    console.log(data);
+    	   if(data.success==true){
+		           layer.msg("报名成功",{icon:1,time:1000})
+		      }
+		    else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+    	   }
+   })
+     })
+ }
+ //渲染学校信息
+ function school(pcaid){
+ 	$.ajax({
+ 		type:"get",
+ 		 headers:{"Authorization":getCookie('token')},
+ 		url:"http://47.100.200.62:8760/v0.1/base/school/pca",
+ 		data:{
+ 			pca_id:pcaid
+ 		},
+ 		success:function(data){
+ 			var str=""
+			 for(var i=0;i<data.data.length;i++)
+	      {
+	      	str+="<option value="+data.data[i].schoolId+">"+data.data[i].schoolName+"</option>"
+	      }
+	      $("#school").html(str)
+ 		}
+ 	})
+ }
+ if(serapplyid!=""){
+   //$("#num").hide();
+   $("#hidden").append("<input type='hidden' class='input-text' value=''   id='user_id' name='user_id'><input type='hidden' class='input-text' value=''  id='user_name' name='user_name'><input type='hidden' class='input-text' value=''   id='password' name='password'><input type='hidden' class='input-text' value=''   id='birthday' name='birthday'><input type='hidden' class='input-text' value=''   id='work_unit' name='work_unit'><input type='hidden' class='input-text' value=''   id='wechat_num' name='wechat_num'><input type='hidden' class='input-text' value=''   id='identity' name='identity'><input type='hidden' class='input-text' value=''   id='remark' name='remark'><input type='hidden' class='input-text' value=''   id='login' name='login'><input type='hidden' class='input-text' value=''   id='server_flag' name='server_flag'><input type='hidden' class='input-text' value=''   id='user_img' name='user_img'><input type='hidden' class='input-text' value=''   id='clazz' name='clazz'><input type='hidden' class='input-text' value=''   id='pca_id' name='pca_id'><input type='hidden' class='input-text' value='' id='pca' name='pca'><input type='hidden' class='input-text' value='' id='competitionId' name='competitionId'><input type='hidden' class='input-text' value='' id='certificate_num' name='certificate_num'>")  
+ 	//获取当前user
+ 	$.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/user',
+	      data: {
+	        user_Name:"",
+	        user_Realname:"",
+	        mobile:serapplyid
+	      },
+	      success: function(data){
+	      	console.log(data);
+	      	 //定义类别
+	         if(data.data[0].join_group==1){
+               $("#school-1").attr("checked",true);
+	        }
+	        if(data.data[0].join_group==2){
+	        	 $("#school-2").attr("checked",true);
+	        } 
+	        if(data.data[0].join_group==3){
+	        	 $("#school-3").attr("checked",true);
+	        } 
+	      	console.log(data);
+	      	//定义性别
+	        data.data[0].member_flag==0?$("#flag-2").attr("checked",true):$("#flag-1").attr("checked",true);
+	        $("#user_id").val(data.data[0].user_id);     
+	      	$("#user_name").val(data.data[0].user_name);
+	      	$("#password").val(data.data[0].password);
+	      	$("#user_realname").val(data.data[0].user_realname);
+	      	$("#birthday").val(data.data[0].birthday);
+	      	$("#certificate_num").val(data.data[0].certificate_num);
+	      	$("#mobile").val(data.data[0].mobile);
+	      	$("#work_unit").val(data.data[0].work_unit);
+	      	$("#email").val(data.data[0].email);
+	      	$("#qq").val(data.data[0].qq);
+	      	$("#wechat_num").val(data.data[0].wechat_num);
+	      	$("#remark").val(data.data[0].email);
+	      	$("#identity").val(data.data[0].identity)
+	      	$("#login").val(data.data[0].login)
+	      	$("#pca_id").val(data.data[0].pca_id)
+	      	$("#server_flag").val(data.data[0].serverFlag)
+	      	$("#schoolId").val(data.data[0].schoolId)
+	      	$("#user_img").val(data.data[0].user_img)
+	      	$("#pca").val(data.data[0].pca)
+	      	$("#clazz").val(data.data[0].clazz)
+	      	$("#school").val(data.data[0].school)
+	      	$("#competitionId").val(serchcompnum);
+	      	
+	       }
+	 })
+//点击提交修改编辑信息
+	
+	   var reg = /^\s*$/g;
+     	
+ 		$("#btn").click(function(){
+			if($("#user_name").val()==""||reg.test($("user_name").val()))
+	     	{
+	     		layer.msg("用户名不能为空")
+	     	}	
+		    else{
+			       $.ajax({ 
+	    	   url: 'http://47.100.200.62:8760/v0.1/competition/user/update',
+	    	    headers:{"Authorization":getCookie('token')},
+	    	   type: 'post', 
+	    	   cache: false, 
+	    	   data: new FormData($('#form1')[0]), 
+	    	   //data:$("#form1").serialize(),
+	    	   processData: false,
+	    	   contentType: false
+	    	  }).done(function(res) { 
+	    	  	  if(res.success==true){
+			           layer.msg("修改成功",{icon:1,time:500})
+			           setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	      },1000)
+			        }
+			       else {
+			         layer.msg(res.msg,{icon:1,time:1000});
+			       }
+	    	  }).fail(function(res) {
+	    	  	console.log(res)
+	    	  }); 
+		    }
+       })
+ }
+ //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+
+</body>
+</html>

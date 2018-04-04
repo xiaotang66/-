@@ -1,0 +1,347 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+<title>新增推广或活动</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal" id="form1" name="form1" enctype="multipart/form-data">
+		<div class="row cl" id="hidden">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>信息标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<!-- <input type="hidden" class="input-text" value="" placeholder="" id="adId" name="adId"> -->
+			<input type="text" class="input-text isnull" value="" placeholder="" id="adTitle" name="adTitle" required="required">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">信息类型：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="adType" type="radio" id="type-1" value="1" checked>
+					<label for="type-1">推广</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="type-2" name="adType" value="2">
+					<label for="type-2">活动</label>
+				</div>
+			</div>
+		</div>
+		 <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3 ">图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				 <span class="btn-upload form-group">
+				 <input class="input-text upload-url" type="text" name="adImgURL" id="adImgUrl" readonly style="width:200px" > 
+				<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择文件</a> 
+				<input type="file" multiple name="adImg" class="input-file" >
+				</span>
+		    </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">跳转地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box inline" style="margin-right:10px">
+				<select name="" class="select" id="aslect">
+				  <option value="chose">请选择</option>
+				    <option value="outlink">外部跳转</option>
+					<option value="intolink">内部跳转</option>
+				</select>
+				</span>
+                <span style="position:relative">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="adUrl" name="adUrl" style="width:50%;">
+				<ul style="text-align:center;position:absolute;z-index:2;left:0;top:28px;width:100%;height:120px;overflow:auto;border:1px solid #ddd;background-color:#fff;display:none;cursor:pointer" id="ul">
+				  <li>大赛作品</li><!-- 大赛作品 -->
+				  <li>读本范文</li> <!-- 读本范文 -->
+				  <li>课文教程</li><!-- 课文教程 -->
+				  <li>名家名篇</li><!-- 名家名篇 -->
+				  <li>赛事</li><!-- 赛事 -->
+				</ul>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>生效日期：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'endDate\')}'})" id="startDate" class="input-text Wdate" style="width:120px;" value="" name="startDate">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>失效日期：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startDate\')}'})" id="endDate" class="input-text Wdate" style="width:120px;" value="" name="endDate">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">当前状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="adStatus" value="1" type="radio" id="status-1" checked>
+					<label for="status-1">生效</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="adStatus" value="0">
+					<label for="status-2" value="0">失效</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+<style>
+
+#ul li:hover{background-color:#ccc;}
+</style>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+     var serchad = sessionStorage.getItem('serchad');  
+     $("#aslect").change(function(){
+     	if($("#aslect").val()=="outlink")
+	 	{
+	 		$("#adUrl").val("http://")
+	 	}
+	 	if($("#aslect").val()=="intolink")
+	 	{
+	 		$("#adUrl").val("/")
+
+	 	}
+	 	if($("#aslect").val()=="chose")
+	 	{
+	 		$("#adUrl").val("")
+	 	}
+     })
+     //input框获取到焦点的时候
+     $("#adUrl").click(function(){
+     	if($("#aslect").val()=="intolink")
+	 	{
+	 		$("#ul").show();
+	 	}
+     })
+     //判断区域
+     var isBox=false;
+      $("#ul").mousemove(function () { // 鼠标进入box区域内打开焦点开关  
+		  isBox = true;  
+		});  
+	  $("#ul").mouseout(function () { // 鼠标离开box区域内关闭焦点开关  
+		  isBox = false;  
+		});  
+     $("#ul").on('click',"li",function(event){
+     	switch ($(this).html()) {
+     		case "大赛作品":
+     			$("#adUrl").val('/Competition')
+     			break;
+     		case "读本范文":
+     			$("#adUrl").val('/Read')
+     			break;
+     		case "课文教程":
+     			$("#adUrl").val('/Course')
+     			break;
+     		case "名家名篇":
+     			$("#adUrl").val('/Famous')
+     			break;
+     		case "赛事":
+     			$("#adUrl").val('/Works')
+     			break;
+     		default:
+     			// statements_def
+     			break;
+     	}
+     	
+    	console.log($(this).html());
+    	$("#ul").hide()
+    })
+     $("#adUrl").blur(function(){
+     	if(isBox==false){
+         $("#ul").hide()
+     	}
+      })
+ 
+
+ if(serchad!=""){
+ 	 $("#hidden").append("<input type='hidden' class='input-text' value='' placeholder='' id='adId' name='adId'>")
+ 	 $.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/ad/id',
+	      data:{
+	      	adId:serchad
+	      },
+	      success: function(data){
+	      	console.log(data);
+	        data.data.adType==1?$("#type2").attr("checked",true):$("#type-1").attr("checked",true);
+	        data.data.adStatus==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	        $("#adId").val(data.data.adId);     
+	      	$("#adTitle").val(data.data.adTitle);
+	      	$("#adUrl").val(data.data.adUrl);
+	      	$("#startDate").val(data.data.startDate);
+	      	$("#endDate").val(data.data.endDate);
+	      	$("#adImgUrl").val(data.data.adImgURL)
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+ 	   
+        var upFileName = $("#adImgUrl").val();
+		var index1=upFileName.lastIndexOf(".");
+		var index2=upFileName.length;
+		var suffix=upFileName.substring(index1+1,index2);//后缀名
+ 			if(suffix!="png"&&suffix!="jpg"&&suffix!="gif"&&suffix!="jpeg")
+		{
+			layer.msg("只允许上传png/jpg/gif/jpeg格式文件");
+			 
+		}
+		else{
+			if($("#adTitle").val()==""||reg.test($("#adTitle").val()))
+	     	{
+	     		layer.msg("信息名称不能为空")
+	     	}
+		    else{
+		    	$.ajax({ 
+	    	   url: 'http://47.100.200.62:8760/v0.1/ad/'+$("#adId").val()+'',
+	    	    headers:{"Authorization":getCookie('token')},
+	    	   type: 'post', 
+	    	   cache: false, 
+	    	   data: new FormData($('#form1')[0]), 
+	    	   //data:$("#form1").serialize(),
+	    	   processData: false,
+	    	   contentType: false
+	    	  }).done(function(res) { 
+	    	  	  if(res.success==true){
+			           layer.msg("修改成功",{icon:1,time:500})
+                       setTimeout(function(){
+			            window.parent.location.reload();
+	    	  	 		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	                  parent.layer.close(index); //再执行关闭
+	                    //刷新原页面
+    	  	 	},1000)
+			   }
+			       else {
+			         layer.msg(res.msg,{icon:1,time:1000});
+			       }
+	    	  }).fail(function(res) {
+	    	  	console.log(res)
+	    	  }); 
+   }
+		}	
+ })
+ }
+ if(serchad=="")
+ {
+ 	if($("#aslect").val()=="outlink")
+ 	{
+ 		$("#adUrl").val("http://")
+ 	}
+ 	if($("#aslect").val()=="intolink")
+ 	{
+ 		$("#adUrl").val("/")
+ 	}
+   var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+
+        var upFileName = $("#adImgUrl").val();
+		var index1=upFileName.lastIndexOf(".");
+		var index2=upFileName.length;
+		var suffix=upFileName.substring(index1+1,index2);//后缀名
+ 		
+		if(suffix!="png"&&suffix!="jpg"&&suffix!="gif"&&suffix!="jpeg")
+		{
+			layer.msg("只允许上传png/jpg/gif/jpeg格式文件");
+			 
+		}
+		else{
+           		 if(($("#adTitle").val()==""||reg.test($("#adTitle").val()))||($("#startDate").val()=="")||($("#endDate").val()==""))
+	     	{
+	     		layer.msg("信息名称和日期不能为空")
+	     	}
+         else{
+			
+			 $.ajax({ 
+	    	   url: 'http://47.100.200.62:8760/v0.1/ad',
+	    	    headers:{"Authorization":getCookie('token')},
+	    	   type: 'post', 
+	    	   cache: false, 
+	    	   data: new FormData($('#form1')[0]), 
+	    	   //data:$("#form1").serialize(),
+	    	   processData: false,
+	    	   contentType: false
+	    	  }).done(function(res) { 
+	    	  	  if(res.success==true){
+			           layer.msg("添加成功",{icon:1,time:500})
+                          setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+                       
+			   }
+			       else {
+			         layer.msg(res.msg,{icon:1,time:1000});
+			       }
+	    	  }).fail(function(res) {
+	    	  	console.log(res)
+	    	  }); 
+
+         }
+		}
+
+
+ })
+ }
+    //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+
+</body>
+</html>

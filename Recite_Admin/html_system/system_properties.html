@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>系统属性</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 系统属性 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div>
+ <table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="9">系统属性</th>
+			</tr>
+			<tr class="text-c">
+				<th width="130">名称</th>
+				<th width="100">状态</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="text-c">
+				<td>用户注册设置</td>
+				<td class="td-status" id="status"><span class="label label-success radius">已开启</span></td>
+				<td class="td-manage" id="manage"> <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="关闭"><i class="Hui-iconfont"></i></a></td>
+			</tr>
+			<tr class="text-c">
+				<td>注册协议文件</td>
+				<td class="td-status"><span class="label radius" style="background-color:white"><a style="text-decoration:none;" id="resg1"  href="javascript:;" title="查看上传记录">查看上传记录</a></span></td>
+				<td class="td-manage" ><a title="编辑" href="javascript:;" onclick="admin_edit('注册协议文件编辑','register-file.html','2','800','400')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a> </td>
+			</tr>
+			<tr class="text-c">
+				<td>APP中"关于我们"</td>
+				<td class="td-status"><span class="label radius" style="background-color:white"><a style="text-decoration:none;" id="resg2" href="javascript:;" title="关闭">查看上传记录</a></span></td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('APP中“关于我们”编辑','about-us.html','2','800','400')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a> </td>
+			</tr>
+			<tr class="text-c">
+				<td>会员协议文件</td>
+				<td class="td-status"><span class="label radius" style="background-color:white"><a style="text-decoration:none;" id="resg3" href="javascript:;" title="关闭">查看上传记录</a></span></td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('会员协议编辑','flag.html','2','800','400')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a> </td>
+			</tr>
+			<tr class="text-c">
+				<td>敏感词过滤</td>
+				<td class="td-status"><span class="label radius" style="background-color:white"><a style="text-decoration:none;" id="resg4" href="javascript:;" title="关闭">查看现有过滤词</a></span></td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('查看','sensitive.html','2','800','400')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont"></i></a> </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+$("#resg1").click(function(){
+	sessionStorage.setItem("type",1);
+	admin_edit('上传记录','regist_add.html','2','800','300')
+})
+$("#resg2").click(function(){
+	sessionStorage.setItem("type",2);
+	admin_edit('上传记录','regist_add.html','2','800','300') 
+})
+$("#resg3").click(function(){
+	sessionStorage.setItem("type",3);
+	admin_edit('上传记录','regist_add.html','2','800','300') 
+})
+$("#resg4").click(function(){
+	//sessionStorage.setItem("type",4);
+	admin_edit('敏感词查看','senstive_add.html','2','800','300') 
+})
+/*注册协议文件-编辑*/
+function admin_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+$.ajax({
+      type: 'get',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/sys/regist',
+      success: function(data){
+         if(data.data==0){
+         $("#manage").html('<a onClick="admin_start(this,id)" href="javascript:;" title="开启" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$("#status").html('<span class="label label-default radius">已关闭</span>');
+         
+         };
+         if(data.data==1){
+         	 $("#manage").html('<a onClick="admin_stop(this,id)" href="javascript:;" title="关闭" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+          $("#status").children().html('<span class="label label-success radius">已开启</span>');
+         };
+        } 
+      });   
+/*注册-关闭*/
+function admin_stop(obj,id){
+	layer.confirm('确认要关闭吗？',function(index){
+	$.ajax({
+      type: 'POST',
+      url: 'http://47.100.200.62:8760/v0.1/sys/regist',
+      data: {
+        attr_Value:"0",
+      },
+      success: function(data){
+        $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="开启" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已关闭</span>');
+		$(obj).remove();
+		layer.msg('已关闭!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+
+/*注册-开启*/
+function admin_start(obj,id){
+	layer.confirm('确认要开启吗？',function(index){
+		$.ajax({
+      type: 'POST',
+      url: 'http://47.100.200.62:8760/v0.1/sys/regist',
+      data: {
+        attr_Value:"1"
+      },
+      success: function(data){
+      	console.log(data);
+       $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="关闭" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已开启</span>');
+		$(obj).remove();
+		layer.msg('已开启!', {icon: 6,time:1000});
+        } 
+      });   
+		
+	});
+}
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+</body>
+</html>

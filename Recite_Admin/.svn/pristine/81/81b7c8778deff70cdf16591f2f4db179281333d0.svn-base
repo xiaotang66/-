@@ -1,0 +1,248 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>用户意见处理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 用户意见处理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="text-c"> 提出日期：
+	<input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;" >
+	<input type="text" class="input-text" style="width:250px" placeholder="输入关键词" id="keyword" name="">
+	<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 搜意见</button>
+</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong id="count">88</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="60">意见标题</th>
+					<th width="60">提出时间</th>
+					<th>意见内容</th>
+					<th width="60">提出人</th>
+					<th>处理内容</th>
+					<th width="60">状态</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<!-- <tr class="text-c">
+					<td><input type="checkbox" value="1" name=""></td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td class="text-l"></td>
+					<td></td>
+					<td class="text-l">
+					</td>
+					<td class="td-manage"><a title="回复" href="javascript:;" onclick="member_edit('回复','member-add.html','4','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+				</tr> -->
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="page1"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//日期处理
+var d=new Date()
+var year =d.getFullYear();
+var month = d.getMonth()+1
+var day= d.getDate()
+function num(n){
+	if(n<10){
+		n='0'+n
+	}
+	return n
+}
+//渲染所有用户意见列表
+function suggestlist(data){
+   var status="";
+	        var stext="";
+	        var iconfont=""
+	         var str="";
+	         var sex = ""
+	         var funct=""
+	         $("#count").html(data.data.totalCount);
+	        for(var i=0;i<data.data.list.length;i++){
+	        	//操作小图标的显示
+	          if(data.data.list[i].status==0){
+	        	status="未处理"; 
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	//funct="star_start(this,'10001')";
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="已处理"; 
+		        	atext="删除"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	//funct="star_stop(this,'10001')";
+		        }
+		        if(data.data.list[i].handle_content==null)
+                   {
+                   	data.data.list[i].handle_content=""
+                   }
+	        	 str+="<tr class='text-c'><td class='checkbox'><input type='checkbox' value='1' name='' data-id="+data.data.list[i].suggest_Id+" data-num="+data.data.list[i].suggester+"></td><td >"+data.data.list[i].suggest_Title+"</td><td>"+data.data.list[i].submitDate+"</td><td>"+data.data.list[i].suggest_Content+"</td><td>"+data.data.list[i].suggester+"</td><td>"+data.data.list[i].handle_content+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td><td class='td-manage'><a title='回复' href='javascript:;'class='edit' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        $(".checkbox").hide();
+	        //点击编辑
+		     $(".edit").click(function(event) {
+		      sessionStorage.setItem("searchsuggest",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		      sessionStorage.setItem("suggester",$(this).parent().siblings().eq(0).children().attr("data-num"));
+		    layer_show('意见反馈','suggest_add.html','800','300');
+		         })
+    }
+        $.ajax({
+	      type: 'get',
+	      url: 'http://47.100.200.62:8760/v0.1/adminSuggest',
+	       headers:{"Authorization":getCookie('token')},
+	      data:{
+	      	keyword:'',
+	      	suggester:'',
+	      	date:'',
+	      	pageNumber:1
+	      },
+	      success: function(data){
+	      	console.log(data)
+	      	 suggestlist(data)
+	      	 if(data.data.totalPage==1||data.data.totalPage==0){
+	      	 	$("#page1").html("");
+	      	 }
+	      	 else{
+		      	 //分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调 
+		            $.ajax({
+			        	  type: 'get',
+					      url: 'http://47.100.200.62:8760/v0.1/adminSuggest',
+					      headers:{"Authorization":getCookie('token')},
+					      data:{
+					      	pageNumber:e.curr,
+					      	keyword:'',
+					      	suggester:'',
+					      	date:''
+					      	
+					      },
+					      success: function(data){
+					       suggestlist(data)
+			         }
+			        	})  
+		           /* $.getJSON('http://47.100.200.62:8760/v0.1/adminSuggest', {pageNumber: e.curr,keyword:'',suggester:'',date:''}, function(res){  
+		            	 suggestlist(res);
+		            });  */
+		        }  
+		      });
+	      	 }
+
+		      
+	      }  
+	})
+/*用户意见-回复*/
+function suggest_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//根据信息查询用户意见
+$("#search").click(function(){
+	
+	$.ajax({
+		type:"get",
+		url:"http://47.100.200.62:8760/v0.1/adminSuggest",
+	     headers:{"Authorization":getCookie('token')},
+		data:{
+            keyword:$("#keyword").val(),
+	      	suggester:'',
+	      	date:$("#datemax").val(),
+	      	pageNumber:1
+		},
+		success:function(data){
+			suggestlist(data);
+             if(data.data.totalPage==1||data.data.totalPage==0){
+             	$("page1").html("");
+             }
+             else{
+             		      	 //分页
+			laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调  
+	        	 $.ajax({
+			        	  type: 'get',
+					      url: 'http://47.100.200.62:8760/v0.1/adminSuggest',
+					      headers:{"Authorization":getCookie('token')},
+					      data:{
+					      	pageNumber: e.curr,
+					      	keyword:$("#keyword").val(),
+					      	suggester:'',
+					      	date:$("#datemax").val()
+					      },
+					      success: function(data){
+					       suggestlist(data)
+			         }
+			        	})  
+	            /*$.getJSON('http://47.100.200.62:8760/v0.1/adminSuggest', {pageNumber: e.curr,keyword:$("#keyword").val(),suggester:'',date:$("#datemax").val()}, function(res){  
+	            	 suggestlist(res);
+	            }); */ 
+	        }  
+	    });
+             }
+
+		}
+	})
+})
+//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  console.log(arr);
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script>
+</body>
+</html>

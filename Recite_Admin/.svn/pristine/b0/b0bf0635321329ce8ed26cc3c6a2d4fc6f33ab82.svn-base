@@ -1,0 +1,174 @@
+
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>驳回意见</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<div style="width:200px;height:60px;margin:30px 50px 0">请选择排行：<select name="" style="width:100px" id="select"><!-- <option value="1">排行一</option><option value="2">排行二</option><option value="3">排行三</option><option value="4">排行四</option><option value="5">排行五</option><option value="6">排行六</option><option value="7">排行七</option><option value="8">排行八</option><option value="9">排行九</option><option value="10">排行十</option> --></div>
+<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3" ><input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;确定&nbsp;&nbsp;" id="btn" style="margin-top:20px"></div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+ var worknumber = sessionStorage.getItem('worknumber');
+ var splicwork = sessionStorage.getItem('splicwork');
+ var modeltype = sessionStorage.getItem('modeltype');
+ var arr=[];
+ console.log(splicwork)
+ arr=worknumber.split(',')
+  console.log(arr)
+ for(var i=0;i<arr.length;i++){
+    $("#select").append("<option value="+parseInt(i+1)+">排行"+parseInt(i+1)+"</option>")
+ }
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+		    var newarr=[];
+			for(var i=0;i<arr.length;i++){
+				if(arr[i]!=splicwork){
+			        newarr.push(arr[i])
+				}
+			}
+ 			switch ($("#select").val()) {
+ 				case '1':
+ 					newarr.splice(0,0,splicwork);
+ 					break;
+ 				case '2':
+ 					newarr.splice(1,0,splicwork);
+ 					break;
+ 				case '3':
+ 					newarr.splice(2,0,splicwork);
+ 					break;
+ 				case '4':
+ 					newarr.splice(3,0,splicwork);
+ 					break;
+ 				case '5':
+ 					newarr.splice(4,0,splicwork);
+ 					break;
+ 				case '6':
+ 					newarr.splice(5,0,splicwork);
+ 					break;
+ 				case '7':
+ 					newarr.splice(6,0,splicwork);
+ 					break;
+ 				case '8':
+ 					newarr.splice(7,0,splicwork);
+ 					break;
+ 				case '9':
+ 					newarr.splice(8,0,splicwork);
+ 					break;
+ 				case '10':
+ 					newarr.splice(9,0,splicwork);
+ 					break;
+ 				default:
+ 					// statements_def
+ 					break;
+ 			}
+ 			console.log(newarr.join(','))
+ 			if(modeltype==""){
+ 				 		  $.ajax({ 
+		  	url: 'http://47.100.200.62:8760/v0.1/adminComPetitionWorks/sort/update',
+		  	headers:{"Authorization":getCookie('token')},
+    	    type: 'POST', 
+    	    data:{
+    	    	worksId:newarr.join(',')
+    	    },
+		      success: function(data){
+		      	console.log(data)
+		        if(data.success==true){
+		           layer.msg("调整成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+ 	   }
+ 	   if(modeltype!=""){
+ 	   	  		  $.ajax({ 
+		  	url: 'http://47.100.200.62:8760/v0.1/audio/sort/update/ten',
+		  	headers:{"Authorization":getCookie('token')},
+    	    type: 'POST', 
+    	    data:{
+    	    	audioId:newarr.join(','),
+    	    	sortBy:modeltype
+    	    },
+		      success: function(data){
+		      	console.log(data)
+		        if(data.success==true){
+		           layer.msg("调整成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+ 	   }
+
+ })
+   //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>添加用户</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="hidden" class="input-text" value="" placeholder="" id="user_id" name="user_id">
+			<input type="hidden" class="input-text" value="" placeholder="" id="pca_id" name="pca_id">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="user_name" name="user_name" required="required">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text isnull" value="" placeholder="" id="password" name="password" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="user_realname" name="user_realname">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="sex" type="radio" id="sex-1" checked>
+					<label for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="sex">
+					<label for="sex-2">女</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">单位：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="work_unit" name="">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="mobile" name="mobile" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">出生日期：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="birthday" class="input-text Wdate" style="width:120px;" value="1998-02-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">省市地区：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			   <span>
+			    省-
+					<select id="province">
+					   
+					</select>
+				</span>
+				<span style="padding:0 20px">
+			    市-
+					<select id="city">
+					  
+					</select>
+				</span>
+				<span>
+			    区-
+					<select id="district">
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否启用：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="status" type="radio" id="status-1" checked>
+					<label for="status-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="status">
+					<label for="status-2">否</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">证件号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="certificate_num" name="certificate_num" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">电子邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="@" name="email" id="email">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">QQ号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="QQ" id="QQ">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">微信号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="" name="" id="wechat_num">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否会员：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			  <div class="radio-box">
+					<input name="flag" type="radio" id="flag-1" checked>
+					<label for="flag-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="flag-2" name="flag">
+					<label for="flag-2">否</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">注册来源：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<select id="source">
+					  <option value="平台注册">平台注册</option>
+					  <option value="微博">微博</option>
+					  <option value="微信">微信</option>
+					  <option value="QQ">QQ</option>
+				</select>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">备注：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="beizhu" cols="" rows="" class="textarea" id="remark"></textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+ var serchmobile = sessionStorage.getItem('serchmobile');
+ var pcaid = '';
+ 			//性别定义
+			var agender = "";
+			if($("#sex-1").prop('checked')==true){
+				agender= 0
+			}
+		    if($("#sex-2").prop('checked')==true){
+				agender= 1
+			}
+			//是否会员
+			var aflag = "";
+			if($("#flag-1").prop('checked')==true){
+				aflag= 1
+			}
+		    if($("#flag-2").prop('checked')==true){
+				aflag= 0
+			}
+			//用户是否启用
+			var astatus = "";
+			if($("#status-1").prop('checked')==true){
+				astatus= 1
+			}
+		    if($("#status-2").prop('checked')==true){
+				astatus= 0
+			}
+			         	//注册来源
+			var asource = 0;
+			switch ($("#source").val()) {
+				case "平台注册":
+					asource=1
+					break;
+				case "微博":
+					asource=2
+					break;
+				case "微信":
+					asource=3
+					break;
+				case "QQ":
+					asource=4
+					break;
+				default:
+					// statements_def
+					break;
+			}
+ //改变省的时候市和区改变
+ $("#province").change(function(event) {
+ 	$("#city").html("");
+ 	$("#district").html("");
+ 	var prarentid=$(this).val();
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	type:"get",
+ 	data:{
+ 		parentPca:prarentid
+ 	},
+ 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#city").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      }
+	       $.ajax({
+		 	url:"http://47.100.200.62:8760/v0.1/area/",
+		 	type:"get",
+		 	data:{
+		 		parentPca:suntid
+		 	},
+		 	success:function(data){
+		      for(var i=0;i<data.data.length;i++)
+		      {
+		      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+		      	  pcaid = ($("#district").val());
+		      }
+
+		 	}
+		 })
+
+	 	}
+	 })
+
+ });
+ //改变市的时候区发生改变
+ $("#city").change(function(event) {
+  	$("#district").html("");
+ 	var prarentid=$(this).val();
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	type:"get",
+ 	data:{
+ 		parentPca:prarentid
+ 	},
+ 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      	 pcaid = ($("#district").val());
+	      }
+	 	}
+	 })
+ });
+ //改变区的时候区发生改变
+ $("#district").change(function(event) {
+	  pcaid = $(this).val();
+ });
+ //遍历所有省的信息
+ area();
+ function area(){
+ 	$.ajax({
+ 	url:"http://47.100.200.62:8760/v0.1/area/",
+ 	type:"get",
+ 	data:{
+ 		parentPca:0
+ 	},
+ 	success:function(data){
+ 		var prarentid=data.data[0].pcaId;
+      for(var i=0;i<data.data.length;i++)
+      {
+      	 $("#province").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+      }
+	   $.ajax({
+	 	url:"http://47.100.200.62:8760/v0.1/area/",
+	 	type:"get",
+	 	data:{
+	 		parentPca:prarentid
+	 	},
+	 	success:function(data){
+	 	var suntid=data.data[0].pcaId
+	      for(var i=0;i<data.data.length;i++)
+	      {
+	      	 $("#city").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+	      }
+
+		    $.ajax({
+		 	url:"http://47.100.200.62:8760/v0.1/area/",
+		 	type:"get",
+		 	data:{
+		 		parentPca:suntid
+		 	},
+		 	success:function(data){
+		      for(var i=0;i<data.data.length;i++)
+		      {
+		      	 $("#district").append("<option value="+data.data[i].pcaId+">"+data.data[i].pcaName+"</option>")
+		      }
+		        pcaid = ($("#district").val());
+		 	}
+	 })
+	 	}
+	 })
+ 	}
+ })
+ }
+
+ if(serchmobile!=""){
+ 	 $.ajax({
+	      type: 'get',
+	      url: 'http://47.100.200.62:8760/v0.1/adminUser/mobile?mobile='+serchmobile+'',
+	      success: function(data){
+	      	console.log(data)
+     		 console.log(data.data.length)
+	      	for(var i=0;i<data.data.length;i++){
+	      		//定义性别
+	         if(data.data[i].gender==0){
+               $("#sex-1").attr("checked",true);
+	        }
+	        else if(data.data[i].gender==1){
+	        	 $("#sex-2").attr("checked",true);
+	        } 
+	        
+	        //注册来源
+		      if(data.data[i].source==1){
+	             $("#source").val("平台注册")
+			}
+			else if(data.data[i].source==2){
+	           $("#source").val("微博")
+			}
+			else if(data.data[i].source==3){
+				$("#source").val("微信")
+			}
+			else if(data.data[i].source==4){
+				$("#source").val("QQ")
+			}
+	        data.data[i].member_Flag==0?$("#flag-2").attr("checked",true):$("#flag-1").attr("checked",true);
+	        data.data[i].status==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	        $("#user_id").val(data.data.user_Id);     
+	      	$("#user_name").val(data.data.user_Name);
+	      	$("#password").val(data.data.password);
+	      	$("#user_realname").val(data.data.user_Realname);
+	      	$("#birthday").val(data.data.birthday);
+	      	$("#certificate_num").val(data.data.certificate_Num);
+	      	$("#mobile").val(data.data.mobile);
+	      	$("#work_unit").val(data.data.work_Unit);
+	      	$("#email").val(data.data.email);
+	      	$("#QQ").val(data.data.qq);
+	      	$("#wechat_num").val(data.data.wechat_Num);
+	      	$("#remark").val(data.data.remark);
+	      	$("#pca_id").val(data.data.pca_Id)
+	      	
+	      	}
+	      	
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+		if($("#user_name").val()==""||reg.test($("#user_name").val()))
+	     	{
+	     		layer.msg("用户名不能为空")
+	     	}	
+	   else{
+		  	$.ajax({
+		      type: 'post',
+		      url: 'http://47.100.200.62:8760/v0.1/adminUser/update',
+		      data: {
+		        user_Id:$("#user_id").val(),     
+			    user_Name:$("#user_name").val(),
+			    password:$("#password").val(),
+			    user_Realname:$("#user_realname").val(),
+			    birthday:$("#birthday").val(),
+			    certificate_Num:$("#certificate_num").val(),
+			    mobile:$("#mobile").val(),
+			    work_Unit:$("#work_unit").val(),
+			    email:$("#email").val(),
+			    qq:$("#QQ").val(),
+			    wechat_Num:$("#wechat_num").val(),
+			    remark:$("#remark").val(),
+			    member_Flag:aflag,
+			    gender:agender,
+			    source:asource,
+			    status:astatus,
+			    pca_Id:pcaid
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		        	layer.msg("修改成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg('data.msg',{icon:1,time:1000});
+		       }
+		      },
+		});
+   }
+  })
+ }
+if(serchmobile==""){
+  $("#mobile").attr("disabled",false);
+  $("#password").attr("disabled",false);
+   var reg = /^\s*$/g;
+ 	$("#btn").click(function(){
+		 if(($("#user_name").val()==""||reg.test($("#user_name").val()))||($("#mobile").val()==""||reg.test($("#mobile").val())))
+	     	{
+	     		layer.msg("用户名不能为空或手机号不能为空")
+	     	}
+         else{
+
+			$.ajax({
+		      type: 'post',
+		      url: 'http://47.100.200.62:8760/v0.1/adminUser/add',
+		      data: {        
+			    user_Name:$("#user_name").val(),
+			    password:$("#password").val(),
+			    user_Realname:$("#user_realname").val(),
+			    birthday:$("#birthday").val(),
+			    certificate_Num:$("#certificate_num").val(),
+			    mobile:$("#mobile").val(),
+			    work_Unit:$("#work_unit").val(),
+			    email:$("#email").val(),
+			    qq:$("#QQ").val(),
+			    wechat_Num:$("#wechat_num").val(),
+			    remark:$("#remark").val(),
+			    member_Flag:aflag,
+			    gender:agender,
+			    source:asource,
+			    status:astatus,
+			    pca_Id:pcaid
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		           layer.msg("添加成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+		  
+    }
+ })
+}
+</script> 
+
+</body>
+</html>

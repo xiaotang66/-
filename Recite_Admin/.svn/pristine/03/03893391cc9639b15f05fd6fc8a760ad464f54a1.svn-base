@@ -1,0 +1,401 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增音频</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal" id="form1" enctype="multipart/form-data" name="form1">
+	     <div class="row cl" id="hidden">
+			<label class="form-label col-xs-4 col-sm-3">音频标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="audioTitle" name="audioTitle">
+				 <input type="hidden" class="input-text" value="" placeholder="" id="relationId" name="relationId">
+				  <input type="hidden" class="input-text" value="-1" placeholder="" id="recommend" name="recommend">
+				   <input type="hidden" class="input-text" value="-1" placeholder="" id="selected" name="selected">
+				    <input type="hidden" class="input-text" value="-1" placeholder="" id="specialized" name="specialized">
+				     <input type="hidden" class="input-text" value="0" placeholder="" id="relationType" name="relationType">
+				<input type="hidden" class="input-text" value="无" placeholder="" id="reciteIdentity" name="reciteIdentity">
+				<input type="hidden" class="input-text" value="无" placeholder="" id="autherIdentity" name="autherIdentity">
+				<input type="hidden" class="input-text" value="0" placeholder="" id="sampleId" name="sampleId">
+				<!-- <input type="hidden" class="input-text" value="" placeholder="" id="audioId" name="audioId"> -->
+				<input type="hidden" id="lyric" name="lyric" value="无">
+			</div>
+		</div>
+		 <div class="row cl" id="hide1">
+			<label class="form-label col-xs-4 col-sm-3 ">音频图标：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				 <span class="btn-upload form-group">
+				 <input class="input-text upload-url adImgUrl" type="text" id="audioImg" name="audioImg" readonly style="width:200px" > 
+				<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择图标</a> 
+				<input type="file" multiple name="img" class="input-file" class="disable">
+				</span>
+		    </div>
+		    </div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">音频时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="分钟:秒" id="audioTime" name="audioTime">
+			</div>
+		</div>
+		 <div class="row cl" id="hide2">
+			<label class="form-label col-xs-4 col-sm-3 ">音频：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				 <span class="btn-upload form-group">
+				 <input class="input-text upload-url" type="text" id="relationUrl"  style="width:200px" > 
+				<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择文件</a> 
+				<input type="file" multiple name="adioFile" class="input-file" class="disable">
+				</span>
+		    </div>
+		    </div>
+		 <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">作者：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="audioAuthor" name="audioAuthor">
+			</div>
+		</div>
+		  <!-- <div class="row cl" id="hide1">
+		  			<label class="form-label col-xs-4 col-sm-3 ">作者头像：</label>
+		  			<div class="formControls col-xs-8 col-sm-9">
+		  				 <span class="btn-upload form-group">
+		  				 <input class="input-text upload-url adImgUrl" type="text" id="autherImageURL" name="autherImageURL" readonly style="width:200px" > 
+		  				<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择图标</a> 
+		  				<input type="file" multiple name="autherImage" class="input-file" class="disable">
+		  				</span>
+		    </div>
+		    </div> -->
+		<!--  <div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">作者身份：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="autherIdentity" name="autherIdentity">
+					</div>
+				</div> -->
+		 <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">作者背景：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="autherBack" name="autherBack">
+			</div>
+		</div>
+		 <div class="row cl ">
+			<label class="form-label col-xs-4 col-sm-3">写作背景：</label>
+			<div class="formControls col-xs-5 col-sm-6">
+				<textarea  class="textarea" id="writeBack"  name="writeBack"></textarea>
+			</div>
+	  </div>
+	 	<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">朗诵专家：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="recite" name="recite">
+			</div>
+		</div>
+		<!--  <div class="row cl" id="hide1">
+					<label class="form-label col-xs-4 col-sm-3 ">朗诵专家头像：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						 <span class="btn-upload form-group">
+						 <input class="input-text upload-url adImgUrl" type="text" id="reciteImageURL" name="reciteImageURL" readonly style="width:200px" > 
+						<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont">&#xe642;</i> 选择图标</a> 
+						<input type="file" multiple name="reciteImage" class="input-file" class="disable">
+						</span>
+		   </div>
+		   </div> -->
+		<!-- <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">朗诵专家身份：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				
+		</div> 
+		</div>-->
+		<div class="row cl " >
+			<label class="form-label col-xs-4 col-sm-3">朗诵专家介绍：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="reciteBack" name="reciteBack">
+			</div>
+		</div>
+        <!--  <div class="row cl song">
+        			<label class="form-label col-xs-4 col-sm-3">朗诵词：</label>
+        			<div class="formControls col-xs-5 col-sm-6">
+        				<textarea  class="textarea" id="lyric" style="width:500px;height:200px" name="lyric">123</textarea>
+        			</div>
+        	  </div> -->
+	   <div class="row cl ">
+			<label class="form-label col-xs-4 col-sm-3">文章内容：</label>
+			<div class="formControls col-xs-5 col-sm-6">
+				<textarea  class="textarea" id="article" style="width:500px;height:200px" name="article"></textarea>
+			</div>
+	  </div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+/*$("#relationUrl").bind("input propertychange", function() {
+ console.log(123)
+});*/
+//读本id用于新增
+ var serchcompnum = sessionStorage.getItem('serchcompnum');
+ //用于更新
+ var searchrecord = sessionStorage.getItem('searchrecord');
+ var relationType=sessionStorage.getItem('relationType');
+ $("#relationType").val(relationType);
+ if(searchrecord!=""){
+ 	$("#hide2").css("display","none");
+ 	$("#hide1").css("display","none")
+    $("#hidden").append('<input type="hidden" class="input-text" value="" placeholder="" id="audioSize" name="audioSize"><input type="hidden" class="input-text" value="" placeholder="" id="submitTime" name="submitTime"><input type="hidden" class="input-text" value="" placeholder="" id="audioId" name="audioId"><input type="hidden" class="input-text" value="" placeholder="" id="relationUrl" name="relationUrl"> <input type="hidden" class="input-text" value="0" placeholder="" id="sampleId" name="sampleId"><input type="hidden" class="input-text" value="0" placeholder="" id="status" name="status">')
+ 	 $.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/audio',
+	      data:{
+	      	audioId:searchrecord
+	      },
+	      success: function(data){
+             console.log(data);
+	        $("#audioId").val(data.data.audioId);     
+	      	$("#audioImg").val(data.data.audioImg);
+	      	$("#audioSize").val(data.data.audioSize);
+	      	$("#audioTime").val(data.data.audioTime);
+	      	$("#audioTitle").val(data.data.audioTitle);
+	      	$("#lyric").val(data.data.lyric);     
+	      	$("#relationId").val(data.data.relationId);
+	      	$("#relationUrl").val(data.data.relationUrl);
+	      	$("#audioAuthor").val(data.data.audioAuthor);
+	      	$("#submitTime").val(data.data.submitTime);
+	      	//$("#autherImageURL").val(data.data.autherImageURL);     
+	      	//$("#reciteImageURL").val(data.data.reciteImageURL);
+	      	$("#reciteBack").val(data.data.reciteBack);
+	      	$("#autherIdentity").val(data.data.autherIdentity);
+	      	$("#autherBack").val(data.data.autherBack);
+	      	$("#recite").val(data.data.recite);
+	      	$("#writeBack").html(data.data.writeBack);
+	      	$("#reciteIdentity").val(data.data.reciteIdentity)
+	      	$("#sampleId").val(data.data.sampleId)
+	      	$("#article").val(data.data.article)
+	      	$("#relationType").val(data.data.relationType)
+	      	$("#specialized").val(data.data.specialized)
+	      	$("#selected").val(data.data.selected)
+	      	$("#recommend ").val(data.data.recommend )
+	      	$("#status").val(data.data.status )
+	       }
+	 })
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+ 			
+		 if(($("#adTitle").val()==""||reg.test($("#adTitle").val()))||($("#startDate").val()=="")||($("#endDate").val()==""))
+	     	{
+	     		layer.msg("信息名称和日期不能为空")
+	     	}
+         else{
+				  	$.ajax({ 
+    	   url: 'http://47.100.200.62:8760/v0.1/audio/relation/update',
+    	    headers:{"Authorization":getCookie('token')},
+    	   type: 'POST', 
+    	   cache: false, 
+    	   data: new FormData($('#form1')[0]), 
+    	    //data:$("#form1").serialize(),
+    	   processData: false,
+    	   contentType: false,
+    	   success:function(data){
+    	   	console.log(data);
+    	   	  if(data.success==true){
+		           layer.msg("修改成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+    	   }
+    	  })
+         }
+
+ })
+ }
+ if(searchrecord==""){
+ 	$("#relationId").val(serchcompnum);
+ 	var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+ 			var bool =true;
+             $(".adImgUrl").each(function(index, el) {
+ 				var upFileName = $(this).val();
+				var index1=upFileName.lastIndexOf(".");
+				var index2=upFileName.length;
+				var suffix=upFileName.substring(index1+1,index2);//后缀名
+				console.log(suffix)
+				if(suffix!="png"&&suffix!="jpg"&&suffix!="gif"&&suffix!="jpeg")
+				{
+					layer.msg("图片只允许上传png/jpg/gif/jpeg格式文件");
+					 bool=false;
+				}
+		    });
+            if(bool){
+            var upFileName = $("#relationUrl").val();
+			var index1=upFileName.lastIndexOf(".");
+			var index2=upFileName.length;
+			var suffix=upFileName.substring(index1+1,index2);//后缀名
+			if(suffix!="mp3"&&suffix!="wav")
+			{
+				layer.msg("音频只允许上传mp3/wma/wav格式文件");
+				 
+			}
+			else if(($("#adTitle").val()==""||reg.test($("#adTitle").val()))||($("#startDate").val()=="")||($("#endDate").val()==""))
+		     	{
+		     		layer.msg("信息名称和日期不能为空")
+		     	}
+		     else{             
+		     	layer.load(2);
+		       $.ajax({ 
+			   url: 'http://47.100.200.62:8760/v0.1/audio/relation',
+			    headers:{"Authorization":getCookie('token')},
+			   type: 'POST', 
+			   cache: false, 
+			   data: new FormData($('#form1')[0]), 
+			    //data:$("#form1").serialize(),
+			   processData: false,
+			   contentType: false,
+			   success:function(data){
+			   	console.log(1233);
+			   	  if(data.success==true){
+			   	  	   layer.closeAll('loading');
+			           layer.msg("添加成功",{icon:1,time:500})
+			            setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+			        }
+			       else {
+			         layer.msg(data.msg,{icon:1,time:1000});
+			         layer.closeAll('loading');
+			       }
+			    }
+			    })
+			}
+       }
+
+			
+
+
+/* 			$(".adImgUrl").each(function(index, el) {
+ 				var upFileName = $(this).val();
+				var index1=upFileName.lastIndexOf(".");
+				var index2=upFileName.length;
+				var suffix=upFileName.substring(index1+1,index2);//后缀名
+				console.log(suffix)
+				if(suffix!="png"&&suffix!="jpg"&&suffix!="gif"&&suffix!="jpeg")
+				{
+					layer.msg("图片只允许上传png/jpg/gif/jpeg格式文件");
+					 
+				}
+				else{
+					var upFileName = $("#relationUrl").val();
+					var index1=upFileName.lastIndexOf(".");
+					var index2=upFileName.length;
+					var suffix=upFileName.substring(index1+1,index2);//后缀名
+					console.log(suffix)
+					if(suffix!="mp3"&&suffix!="wav")
+					{
+						layer.msg("音频只允许上传mp3/wma/wav格式文件");
+						 
+					}
+					else{
+					if(($("#adTitle").val()==""||reg.test($("#adTitle").val()))||($("#startDate").val()=="")||($("#endDate").val()==""))
+				     	{
+				     		layer.msg("信息名称和日期不能为空")
+				     	}
+				     else{             
+				     	layer.load(2);
+		               $.ajax({ 
+			    	   url: 'http://47.100.200.62:8760/v0.1/audio/relation',
+			    	   type: 'POST', 
+			    	   cache: false, 
+			    	   data: new FormData($('#form1')[0]), 
+			    	    //data:$("#form1").serialize(),
+			    	   processData: false,
+			    	   contentType: false,
+			    	   success:function(data){
+			    	   	console.log(1233);
+			    	   	  if(data.success==true){
+			    	   	  	   layer.closeAll('loading');
+					           layer.msg("添加成功",{icon:1,time:1000})
+					            setTimeout(function(){
+				                window.parent.location.reload();
+		    	  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                         parent.layer.close(index); //再执行关闭
+		                       //刷新原页面
+	    	  	 	            },3000)
+					        }
+					       else {
+					         layer.msg(data.msg,{icon:1,time:1000});
+					       }
+			    	    }
+			    	    })
+						}
+	                }
+			}
+
+ 			});*/
+   })
+ 	}
+
+    //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+
+</body>
+</html>

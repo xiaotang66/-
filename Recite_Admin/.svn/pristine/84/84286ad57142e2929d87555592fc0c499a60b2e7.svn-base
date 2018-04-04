@@ -1,0 +1,306 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>修改上传作品信息</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="hidden" class="input-text" value="" placeholder="" id="user_id" name="user_id">
+			<input type="hidden" class="input-text" value="" placeholder="" id="works_id" name="works_id">
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="user_name" name="user_name" required="required">
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="sample_id" name="sample_id" >
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="sample_works" name="sample_works" >
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="sample_works" name="sample_works" >
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="work_introduce" name="work_introduce" >
+			<input type="text" class="input-text isnull" value="" placeholder="" id="works_name" name="works_name" required="required">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">配图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="imageURL" name="imageURL" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">录音时长：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="单位s" id="recordURL" name="recordURL">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">录制时间</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="record_date" class="input-text Wdate" style="width:120px;" value="1998-02-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">提交时间</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker({maxDate:'%y-%M-%d' })" id="submitDate" class="input-text Wdate" style="width:120px;" value="1998-02-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛标志：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="flag" type="radio" id="flag-1" checked>
+					<label for="flag-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="flag-2" name="flag">
+					<label for="flag-2">否</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">系统评分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="machine_grade" name="machine_grade">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">评委评分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="judge_grade" name="judge_grade" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">评价详情：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="Judge_remark" cols="" rows="" class="textarea" id="judge_remark"></textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">评价结果：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="judge_conclusion" type="radio" id="judge-1" checked>
+					<label for="judge-1">等待评审</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="judge-2" name="judge_conclusion">
+					<label for="judge-2">已通过</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="judge-3" name="judge_conclusion">
+					<label for="judge-3">未通过</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">试听数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="listening_num" name="listening_num" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">点赞数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="like_num" name="like_num" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">评论数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="comment_num" name="comment_num" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">转发数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="forward_num" name="forward_num" >
+			</div>
+		</div>
+        <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">收藏：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text " value="" placeholder="" id="collection_num" name="collection_num" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">是否驳回：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<div class="radio-box">
+					<input name="status" type="radio" id="status-1" checked>
+					<label for="status-1">是</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-2" name="status">
+					<label for="status-2">否</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+var searchwork = sessionStorage.getItem('searchwork');
+ console.log(searchwork)
+ 	 $.ajax({
+	      type: 'get',
+	      url: 'http://192.168.1.18:8760/v0.1/adminComPetitionWorks/'+searchwork+'',
+	      data:{
+	      },
+	      success: function(data){
+	      	data.data.competition_flag==0?$("#flag-2").attr("checked",true):$("#flag-1").attr("checked",true);
+	      	data.data.status==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	      	switch (data.data.judge_conclusion) {
+	      		case 1:
+	      			$("#judge-1").attr("checked",true)
+	      			break;
+	      		case 2:
+	      			$("#judge-2").attr("checked",true)
+	      			break;
+	      		case 3:
+	      			$("#judge-3").attr("checked",true)
+	      			break;
+	      		default:
+	      			// statements_def
+	      			break;
+	      	}
+	      	data.data.judge_conclusion==0?$("#status-2").attr("checked",true):$("#status-1").attr("checked",true);
+	      	console.log(data);
+	        $("#works_id").val(data.data.works_id);
+	        $("#works_name").val(data.data.works_name);     
+	      	$("#user_id").val(data.data.user_id);
+	      	$("#user_name").val(data.data.user_name);
+	      	$("#collection_num").val(data.data.collection_num);
+	      	$("#comment_num").val(data.data.comment_num);
+	      	$("#forward_num").val(data.data.forward_num);     
+	      	$("#imageURL").val(data.data.imageURL);
+	      	$("#judge_conclusion").val(data.data.judge_conclusion);
+	      	$("#judge_grade").val(data.data.judge_grade);
+	      	$("#judge_remark").val(data.data.judge_remark);
+	      	$("#like_num").val(data.data.like_num);
+	      	$("#listening_num").val(data.data.listening_num);
+	      	$("#machine_grade").val(data.data.machine_grade);
+	      	$("#recordURL").val(data.data.recordURL);
+	      	$("#record_date").val(data.data.record_date);
+	      	$("#sample_id").val(data.data.sample_id);
+	      	$("#sample_works").val(data.data.sample_works);
+	      	$("#submitDate").val(data.data.submitDate);
+	      	$("#work_introduce").val(data.data.work_introduce);
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+					 if($("#starName").val()==""||reg.test($("#starName").val()))
+	     	{
+	     		layer.msg("名家名称不能为空")
+	     	}
+         else{
+			//作品状态
+			var astatus = "";
+			if($("#status-1").prop('checked')==true){
+				astatus= 1
+			}
+		    if($("#status-2").prop('checked')==true){
+				astatus= 0
+			}
+			//参赛标志
+			var aflag = "";
+			if($("#flag-1").prop('checked')==true){
+				aflag= 1
+			}
+		    if($("#flag-2").prop('checked')==true){
+				aflag= 0
+			}
+			//评价结果
+			var ajudge = "";
+			if($("#judge-1").prop('checked')==true){
+				ajudge= 1
+			}
+		    if($("#judge-2").prop('checked')==true){
+				ajudge= 2
+			}
+			if($("#judge-3").prop('checked')==true){
+				ajudge= 3
+			}
+		  	$.ajax({
+		      type: 'post',
+		      url: 'http://192.168.1.18:8760/v0.1/saveComPetitionWorks ',
+		      data: {
+		    works_id:$("#works_id").val(),
+	        works_name:$("#works_name").val(),    
+	      	user_id:$("#user_id").val(),
+	      	user_name:$("#user_name").val(),
+	      	collection_num:$("#collection_num").val(),
+	      	comment_num:$("#comment_num").val(),
+	      	forward_num:$("#forward_num").val(),     
+	      	imageURL:$("#imageURL").val(),
+	      	judge_grade:$("#judge_grade").val(),
+	      	judge_remark:$("#judge_remark").val(),
+	      	like_num:$("#like_num").val(),
+	      	listening_num:$("#listening_num").val(),
+	      	machine_grade:$("#machine_grade").val(),
+	      	recordURL:$("#recordURL").val(),
+	      	record_date:$("#record_date").val(),
+	      	sample_id:$("#sample_id").val(),
+	      	sample_works:$("#sample_works").val(),
+	      	status:astatus,
+	      	submitDate:$("#submitDate").val(),
+	      	work_introduce:$("#work_introduce").val(),
+	      	competition_flag:aflag,
+	      	judge_conclusion:ajudge
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		           layer.msg("修改成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+         }
+ })
+
+</script> 
+
+</body>
+</html>

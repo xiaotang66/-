@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>平台设置</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 范文管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+  <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" class="btn btn-primary radius" style="margin:0 20px;background-color:#5eb95e" onclick="symplework_add('添加大赛范文','compemodel_add.html','','500')"><i class="Hui-iconfont" >&#xe600;</i> 新增大赛范文</a></span> <span class="l"> <a href="javascript:;" class="btn btn-primary radius" style="margin:0 20px;background-color:#5eb95e" id='recordadd'><i class="Hui-iconfont" >&#xe600;</i> 新增大赛范文音频</a></span></div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+		
+					<th width="70">范文名称</th>
+					<th width="200">范文介绍</th>
+					<th width="80">配图</th>
+					<th width="90">录音时长</th>
+					<th width="40">朗诵专家</th>
+					<th width="70">朗诵专家头像</th>
+					<th width="200">朗诵专家介绍</th>
+					<th width="80">作者</th>
+					<th width="90">作者头像</th>
+					<th width="200">作者身份</th>
+					<th width="80">作者背景</th>
+					<th width="90">文章欣赏</th>
+					<th width="90">状态</th>
+					<th width="90">操作</th>
+				</tr>
+			</tr>
+		</thead>
+		<tbody id="tbody2">
+			<tr class="text-c">
+				<td><input type="checkbox" value="1" name=""></td>
+		
+				<td >admin@mail.com</td>
+				<td>微信</td>
+				<td>否</td>
+				<td >admin@mail.com</td>
+				<td>微信</td>
+				<td>否</td>
+				<td>微信</td>
+				<td>否</td>
+				<td >admin@mail.com</td>
+				<td>微信</td>
+				<td>否</td>
+				<td>否</td>
+				<td class="td-status"><span class="label label-success radius">已启用</span></td>
+				<td class="td-manage"><a style="text-decoration:none"  href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="page1"></div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//渲染大赛范文信息
+function sympleworklist(data){
+	var type=""
+		  var str = "";
+		  var status = ""
+		  var stext="";
+		  var iconfont="";
+		  var funct=""
+		  funct="symplework_stop(this,'10001')";
+		  for(var i=0;i<data.data.length;i++){
+		  	/*if(data.datat[i].status==0){
+	        	status="失效"; 
+	        	atext="恢复"
+	        	stext="label-default";
+	        	iconfont="&#xe615;"
+	        	
+
+		        }
+		         if(data.data[i].status==1){
+		        	status="正常"; 
+		        	atext="删除"
+		        	stext="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="readtype_stop(this,'10001')";
+		        }*/
+		  	str+= 
+		  	"<tr class='text-c'><td><input type='checkbox' value='1' name='aa' data-id="+data.data[i].sample_id+" class='radio'></td><td>"+data.data[i].sample_name+"</td><td>"+data.data[i].sample_introduce+"</td><td>"+data.data[i].imageURL+"</td><td>"+data.data[i].record_time+"</td><td>"+data.data[i].recite+"</td><td>"+data.data[i].reciteImageURL+"</td><td>"+data.data[i].reciteBack+"</td><td>"+data.data[i].author+"</td><td>"+data.data[i].autherImageURL+"</td><td>"+data.data[i].autherIdentity+"</td><td>"+data.data[i].autherBack+"</td><td>"+data.data[i].article+"</td><td class='td-status'><span class='label label-success radius'>正常</span></td><td class='td-manage'><a style='text-decoration:none' onClick="+funct+" href='javascript:;'' title='正常''><i class='Hui-iconfont'>&#xe631;</i></a> <a title='编辑'' href='javascript:;'class='edit1' class='ml-5' style='text-decoration:none'><i class='Hui-iconfont'>&#xe6df;</i></a> </td></tr>"
+		  }
+          $("#tbody2").html(str);
+          $(".edit1").click(function(event){
+          	 symplework_edit('编辑大赛范文','compemodel_add.html','4','','500');
+             sessionStorage.setItem("serchcompitionid",$(this).parent().siblings().eq(0).children().attr("data-id"));
+          })
+}
+//渲染大赛范文信息
+
+	$.ajax({
+		type:"get",
+		url:"http://47.100.200.62:8760/v0.1/adminSampleWork",
+		data:{
+			 competitionId:sessionStorage.getItem('serchcompnum')
+		},
+		success:function(data){
+		   sympleworklist(data)
+	 }
+	})
+//大赛范文信息-添加
+function symplework_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("serchcompitionid","");
+}
+//大赛范文信息-删除
+function symplework_stop(obj,id){
+	layer.confirm('确认删除？',function(index){
+	$.ajax({
+      type: 'post',
+      url: 'http://47.100.200.62:8760/v0.1/adminSaveSampleWork/'+$(obj).parent().siblings().eq(0).children().attr("data-id")+'',
+      data: {
+      },
+      success: function(data){
+        $(obj).parent().prepend('<a onClick="readtype_start(this,id)" href="javascript:;" title="无法恢复" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已删除</span>');
+		$(obj).remove();
+		layer.msg('已删除!',{icon: 5,time:1000});
+        } 
+      })   
+	})
+}
+
+/*大赛范文信息-编辑*/
+function symplework_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//新增录音
+//查询录音
+$("#recordadd").click(function(event) {
+	var anum=0;
+	var adataid="";
+	$(".radio").each(function(index, el){
+	if($(this).prop("checked")){
+		anum++;
+		adataid=$(this).attr('data-id');
+	 }
+  })
+	if(anum!=0)
+	 {
+	   sessionStorage.setItem("searchcomid","");
+       record_add('添加范文录音','compescord.html','','400')
+
+	}
+	 if(anum==0){
+	 	layer.msg("请先选择大赛范文");
+	 }
+})
+//新增范文录音
+function record_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增大赛信息</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>赛事名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" placeholder="" id="comp_name" name="comp_name">
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="competition_id" name="competition_id" required="required">
+			<input type="hidden" class="input-text isnull" value="" placeholder="" id="user_status" name="user_status" required="required">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">赛事简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="comp_introduce" name="comp_introduce">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">赛事安排：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="comp_schedule" name="comp_schedule">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">参赛说明：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="comp_require" name="comp_require">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">主办方：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="sponsor" name="sponsor">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">承办方：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="organizer" name="organizer">
+			</div>
+		</div>
+        <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">开始日期：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker()" id="begin_date" class="input-text Wdate" style="width:120px;" value="2018-03-02">
+			</div>
+		</div>
+        <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">结束日期：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" onfocus="WdatePicker()" id="end_date" class="input-text Wdate" style="width:120px;" value="2018-03-02">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">赛事网站：</label>
+			<div class="formControls col-xs-8 col-sm-9 ">
+			 <input type="text" class="input-text isnull" value="" placeholder="" id="comp_website" name="comp_website">
+			 </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">报名人数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="join_count" name="join_count">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">提交作品总数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text isnull" value="" placeholder="" id="works_count" name="works_count">
+			</div>
+		</div>
+		<div class="row cl" id="comstatus">
+			<label class="form-label col-xs-4 col-sm-3">赛事状态：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal" >
+			   <div class="radio-box">
+					<input name="status" type="radio" id="status-0" checked>
+					<label for="status-0">未开始</label>
+				</div>
+			    <div class="radio-box">
+					<input name="status" type="radio" id="status-1">
+					<label for="status-1">报名中</label>
+				</div>
+				 <div class="radio-box">
+					<input name="status" type="radio" id="status-2">
+					<label for="status-2">初赛</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-3" name="status">
+					<label for="status-3">决赛</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-4" name="status">
+					<label for="status-4">复赛</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-5" name="status">
+					<label for="status-5">结束</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="status-9" name="status">
+					<label for="status-9">已终止</label>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+ var serchcompition = sessionStorage.getItem('serchcompition');
+
+ if(serchcompition!=""){
+ 	 $.ajax({
+	      type: 'get',
+	      url: 'http://192.168.1.9:8760/v0.1/competition/'+serchcompition+'/admin',
+	      data:{
+	      	//competitionId:
+	      },
+	      success: function(data){
+
+	      	switch (data.comp_status) {
+	      		case 0:
+	      			$("#status-0").attr("checked",true)
+	      			break;
+	      		case 1:
+	      			$("#status-1").attr("checked",true)
+	      			break;
+	      		case 2:
+	      			$("#status-2").attr("checked",true)
+	      			break;
+	      		case 3:
+	      			$("#status-3").attr("checked",true)
+	      			break;
+	      		case 4:
+	      			$("#status-4").attr("checked",true)
+	      			break;
+	      		case 5:
+	      			$("#status-5").attr("checked",true)
+	      			break;
+	      		case 9:
+	      			$("#status-9").attr("checked",true)
+	      			break;
+	      		default:
+	      			// statements_def
+	      			break;
+	      	 }
+	        	$("#comp_name").val(data.comp_name);
+			    $("#competition_id").val(data.competition_id);
+			    $("#comp_require").val(data.comp_require);
+			    $("#comp_schedule").val(data.comp_schedule);
+			    $("#begin_date").val(data.begin_date);
+			    $("#comp_introduce").val(data.comp_introduce);
+			    $("#comp_website").val(data.comp_website);
+			    $("#end_date").val(data.end_date);
+			    $("#join_count").val(data.join_count);
+			    $("#organizer").val(data.organizer);
+			    $("#sponsor").val(data.sponsor);
+			    $("#user_status").val(data.user_status);
+			    $("#works_count").val(data.works_count);
+	       }
+	 })
+//点击提交修改编辑信息
+	 var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+			if($("#comp_name").val()==""||reg.test($("#comp_name").val()))
+	     	{
+	     		layer.msg("比赛名称不能为空")
+	     	}
+		    else{
+			//信息状态
+			var astatus = "";
+			if($("#status-1").prop('checked')==true){
+				astatus= 1
+			}
+		    if($("#status-2").prop('checked')==true){
+				astatus= 2
+			}
+			if($("#status-3").prop('checked')==true){
+				astatus= 3
+			}
+		    if($("#status-4").prop('checked')==true){
+				astatus= 4
+			}
+			if($("#status-5").prop('checked')==true){
+				astatus= 5
+			}
+		    if($("#status-9").prop('checked')==true){
+				astatus= 9
+			}
+		  	$.ajax({
+		      type: 'post',
+		      url: 'http://47.100.200.62:8760/v0.1/competition/'+serchcompition+'',
+		      data: {  
+		        comp_name:$("#comp_name").val(),
+			    competition_id:$("#competition_id").val(),
+			    comp_require:$("#comp_require").val(),
+			    comp_schedule:$("#comp_schedule").val(),
+			    begin_date:$("#begin_date").val(),
+			    comp_introduce:$("#comp_introduce").val(),
+			    comp_website:$("#comp_website").val(),
+			    end_date:$("#end_date").val(),
+			    join_count:$("#join_count").val(),
+			    organizer:$("#organizer").val(),
+			    sponsor:$("#sponsor").val(),
+			    user_status:$("#user_status").val(),
+			    works_count:$("#works_count").val(),
+			    comp_status:astatus
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		           layer.msg("修改成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+    }
+ })
+ }
+ if(serchcompition=="")
+ {
+   var reg = /^\s*$/g;
+ 		$("#btn").click(function(){
+		 if($("#comp_name").val()==""||reg.test($("#comp_name").val()))
+	     	{
+	     		layer.msg("不能为空")
+	     	}
+         else{
+			
+		  	$.ajax({
+		      type: 'post',
+		      url: 'http://47.100.200.62:8760/v0.1/competition',
+		      data: {        
+			    comp_name:$("#comp_name").val(),
+			    //competition_id:$("#competition_id").val(),
+			    comp_require:$("#comp_require").val(),
+			    comp_schedule:$("#comp_schedule").val(),
+			    begin_date:$("#begin_date").val(),
+			    comp_introduce:$("#comp_introduce").val(),
+			    comp_website:$("#comp_website").val(),
+			    end_date:$("#end_date").val(),
+			    join_count:$("#join_count").val(),
+			    organizer:$("#organizer").val(),
+			    sponsor:$("#sponsor").val(),
+			    user_status:0,
+			    works_count:$("#works_count").val(),
+			    comp_status:0
+		      },
+		      success: function(data){
+		        if(data.success==true){
+		           layer.msg("添加成功",{icon:1,time:1000})
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		      }
+		 });
+         }
+
+ })
+ }
+
+    
+</script> 
+
+</body>
+</html>

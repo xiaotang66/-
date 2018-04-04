@@ -1,0 +1,678 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>平台设置</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 平台设置 <span class="c-gray en">&gt;</span> 发送通知 <a  class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+ <!-- <div class="text-c"> 
+ 		<input type="text" value="" class="input-text" style="width:250px" placeholder="输入标题" id="serach-text" name="">
+ 		<button type="submit" class="btn btn-success radius" id="search" name=""><i class="Hui-iconfont">&#xe665;</i> 搜通知</button>
+ </div> -->
+	<div class="cl pd-5 bg-1 bk-gray mt-20">  <span class="select-box inline" style="margin-right:10px">
+         类别：  
+		<select name="" class="select" id="aslect">
+		    <option value="choose">请选择</option>
+			<option value="alluser">全部用户</option>
+			<option value="compuser">参赛作者</option>
+			<option value="flag">会员</option>
+			<option value="teacher">老师</option>
+			<option value="student">学生</option>
+		</select>
+		</span>
+	<!-- <span class="l" id="recomand"> --><a href="javascript:;" class="btn btn-primary radius"  id="addmessage"><i class="Hui-iconfont">&#xe600;</i> 发通知</a></div>
+
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c thead">
+				<!-- <th width="25"><input type="checkbox" name="" value=""></th>  -->
+				<th width="100">通知标题</th>
+				<th >通知内容</th>
+				<th width="150">通知时间</th>
+				<th width="70">状态</th>
+				
+			</tr>
+			<tr class="text-c thead1" style="display:none">
+			    <th width="25"><input type="checkbox" name="" value="" checked="checked" id="check"></th>
+				<th width="70">用户名</th>
+				<th width="60">性别</th>
+				<th width="80">出生日期</th>
+				<th width="90">证件号码</th>
+				<th width="90">手机号码</th>
+				<th width="100">电子邮箱</th>
+				<th width="100">身份</th>
+				<th width="90">注册来源</th>
+				<th width="100">是否为会员</th>
+				<th width="70">备注</th>
+				<th width="60">状态</th>
+			</tr>
+			<tr class="text-c thead2" style="display:none">
+					<th width="25"><!-- <input type="checkbox" name="" value=""> --></th>
+					<th width="100">赛事名称</th>
+					<th width="90">大赛图片</th>
+					<th width="120">主办方</th>
+					<th width="120">承办方</th>
+					<th width="90">开始日期</th>
+					<th width="90">结束日期</th>
+					<th width="100">赛事网站</th>
+					<th width="50">报名人数</th>
+					<th width="50">提交作品总数</th>
+					<th width="50">赛事状态</th>
+				</tr>
+		</thead>
+		<tbody id="tbody">
+		</tbody>
+	</table>
+	</div>
+</div>
+<div id="page1"></div>
+<div id="fade"></div>
+<style>
+ .nobeigin{background-color:blue;}
+ .end{background-color:#287682;}
+ .begin{background-color:orange;}
+ .final{background-color:#c61e99;}
+ .repeat{background-color:#cd5861;}
+</style>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//通知搜索
+$("#search").click(function(){
+	$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		//url:"http://47.100.200.62:8760/v0.1/keyword/likename",
+		data:{
+			pageNumber:1,
+			keywordName:$("#serach-text").val()
+		},
+		success:function(data){
+			keywordlist(data)
+		   if(data.data.totalPage==1||data.data.totalPage==0){
+		   	$("#page1").html("");
+		   }
+		   else{
+		   //分页
+			laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调  
+	        	 $.ajax({
+	        	  type: 'get',
+			      //url: 'http://47.100.200.62:8760/v0.1/textbook/all',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      	
+			      },
+			      success: function(data){
+			        readlist(data)
+	         }
+	        	})
+	            /*$.getJSON('http://47.100.200.62:8760/v0.1/keyword/likename', {pageNumber: e.curr,keywordName:$("#serach-text").val()}, function(res){  
+	            	 messagelist(res)
+	            }); */ 
+         }  
+    })		
+      }	
+   }
+	})
+})
+//显示所有用户
+$("#aslect").change(function(){
+	$("tbody").html("");
+	if($("#aslect").val()=='alluser'){
+    	$(".thead1").show();
+    	$(".thead1").siblings().hide();
+		alluser();
+	}
+	if($("#aslect").val()=='compuser'){
+    	$(".thead2").show();
+    	$(".thead2").siblings().hide();
+		compuser();
+	 }
+	 if($("#aslect").val()=='student'){
+        $(".thead1").show();
+    	$(".thead1").siblings().hide();
+		student('identity',0);
+	 }
+	 if($("#aslect").val()=='teacher'){
+        $(".thead1").show();
+    	$(".thead1").siblings().hide();
+		student('identity',1);
+	 }
+	 if($("#aslect").val()=='flag'){
+        $(".thead1").show();
+    	$(".thead1").siblings().hide();
+		student('member',1)
+	 }
+
+})
+//添加
+$("#addmessage").click(function(){
+  if($("#aslect").val()=="alluser"){
+  	 if($("#check").prop('checked')==true){
+  	 	sessionStorage.setItem("searchmessage","1");
+        message_add('新增通知','message_add.html','','400')
+  	 }
+  	 else{
+  	 	oneperson()
+  	 }
+  }
+   if($("#aslect").val()=="compuser"){
+	    var anum=0;
+		var adataid="";
+		$(".radio").each(function(index, el){
+		if($(this).prop("checked")){
+			anum++;
+			adataid=$(this).attr('data-id');
+		 }
+	  })
+		if(anum!=0)
+		 {
+		    sessionStorage.setItem("searchmessage","2");
+		    sessionStorage.setItem("competitionId",adataid);
+		    message_add('新增通知','message_add.html','','400')
+		 }
+		 if(anum==0){
+		 	layer.msg("请先选择大赛");
+		 }
+    }
+    //学生
+     if($("#aslect").val()=="student"){
+        if($("#check").prop('checked')==true){
+  	 	sessionStorage.setItem("searchmessage","4");
+        message_add('新增通知','message_add.html','','400')
+  	 }
+  	 else{
+  	 	oneperson()
+  	  }
+    }
+    //老师
+     if($("#aslect").val()=="teacher"){
+        if($("#check").prop('checked')==true){
+  	 	sessionStorage.setItem("searchmessage","5");
+        message_add('新增通知','message_add.html','','400')
+  	 }
+  	 else{
+  	 	oneperson()
+  	 }
+    }
+    //会员
+     if($("#aslect").val()=="flag"){
+        if($("#check").prop('checked')==true){
+  	 	sessionStorage.setItem("searchmessage","6");
+        message_add('新增通知','message_add.html','','400')
+  	 }
+  	 else{
+  	 	oneperson()
+  	 }
+    }
+})
+//单独用户
+function oneperson(){
+	    var anum=0;
+		var adataid=[];
+		$(".checkbox").each(function(index, el){
+		if($(this).prop("checked")){
+			anum++;
+			adataid.push($(this).attr('data-id'));
+		 }
+	  })
+		if(anum!=0)
+		 {
+		 	console.log(adataid)
+		    sessionStorage.setItem("searchmessage","3");
+		    sessionStorage.setItem("personid",adataid);
+		    message_add('新增通知','message_add.html','','400')
+		 }
+		 if(anum==0){
+		 	layer.msg("请先选择用户");
+		 }
+}
+//通知分页
+$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/msg/admin",
+		data:{
+			pageNumber:1
+		},
+		success:function(data){
+			console.log(data)
+		 messagelist(data)
+		  if(data.data.totalPage==1||data.data.totalPage==0){
+		   	$("#page1").html("");
+		   }
+		   else{
+		     	//分页
+				laypage({  
+		        cont: 'page1', 
+		        pages: data.data.totalPage, //通过后台拿到的总页数  
+		        curr: 1, //初始化当前页  
+		        jump: function(e){ //触发分页后的回调  
+		           /* $.getJSON('http://47.100.200.62:8760/v0.1/msg/admin', {pageNumber: e.curr}, function(res){  
+		            	 messagelist(res)
+		            });*/  
+		             $.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/msg/admin',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      	
+			      },
+			      success: function(data){
+			        messagelist(data)
+	         }
+	        	})
+		        }  
+		    });
+		   }
+
+	}
+	})
+//渲染所有通知列表
+function messagelist(data){
+
+	 var status="";
+	        var stext="";
+	        var iconfont=""
+	         var str="";
+	         var type = "";
+	         var title="";
+	         var funct="message_stop(this,'10001')";
+	         var newDate="";
+	         
+	        for(var i=0;i<data.data.list.length;i++){
+	        	newDate=/\d{4}-\d{1,2}-\d{1,2}/g.exec(data.data.list[i].msgTime)
+	        	//操作小图标的显示
+	          if(data.data.list[i].status==0){
+	        	status="label-default"; 
+	        	stext="无法恢复";
+	        	title="删除";
+	        	iconfont="&#xe615;"
+	        	
+
+		        }
+		         if(data.data.list[i].status==1){
+		        	status="label-success"; 
+		        	stext="失效";
+		        	title="正常";
+		        	iconfont="&#xe631;";
+		        	
+		        }
+	        	 str+="<tr class='text-c'><td class='radio'><input type='radio' value='1' name='radio'  data-id="+data.data.list[i].msgId+"></td><td >"+data.data.list[i].msgTitle+"</td><td>"+data.data.list[i].msgDetail+"</td><td>"+newDate+"</td><td class='td-status'><span class='label "+status+" radius'>"+title+"</span></td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        $(".radio").hide();
+	        //点击编辑
+		         $(".edit").click(function(event) {
+		         	sessionStorage.setItem("serchkeyword",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		            keyword_edit('编辑','message_add.html','4','','350');
+		         })
+}
+/*通知-删除*/
+function message_stop(obj,id){
+	console.log($(obj).parent().siblings().eq(0).children().attr("data-id"))
+	layer.confirm('确认要删除吗？',function(index){
+	$.ajax({
+      type: 'post',
+       headers:{"Authorization":getCookie('token')},
+      url: 'http://47.100.200.62:8760/v0.1/keyword/delete',
+      data: {
+        keywordId:$(obj).parent().siblings().eq(0).children().attr("data-id"),
+      },
+      success: function(data){
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">删除</span>');
+		//$(obj).remove();
+		layer.msg('已删除!',{icon: 5,time:1000});
+        } 
+      });   
+	});
+}
+/*通知-编辑*/
+function message_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+//通知-添加
+/*关键词-添加*/
+function message_add(title,url,w,h){
+	layer_show(title,url,w,h);
+	sessionStorage.setItem("serchkeyword","");
+}
+//获取所有app用户并渲染
+function applist(data){
+            var sex = "";
+            var status="";
+	        var stext="";
+	        var iconfont=""
+	        var atext=""
+	        var str="";
+	        var funct="";
+	        var identity="";
+	        var asource="";
+	        var vip=""
+            for(var i=0;i<data.data.list.length;i++){
+	         if(data.data.list[i].gender==0){
+                sex="男"
+	         }
+	          if(data.data.list[i].gender==1){
+	        	sex="女"
+	         }
+	         //是否会员
+             if(data.data.list[i].member_flag==1){
+                vip="是"
+	         }
+	          if(data.data.list[i].member_flag==0){
+	        	vip="否"
+	         }
+
+	        //操作小图标的显示
+	          if(data.data.list[i].login==0){
+	        	stext="禁用"; 
+	        	atext="启用"
+	        	status="label-default";
+	        	iconfont="&#xe615;"
+	        	funct="member_start(this,'10001')";
+
+		        }
+		         if(data.data.list[i].login==1){
+		        	stext="启用"; 
+		        	atext="禁用"
+		        	status="label-success";
+		        	iconfont="&#xe631;";
+		        	funct="member_stop(this,'10001')";
+		        }
+		        //身份
+		        if(data.data.list[i].identity==0){
+	        	identity="学生"
+
+		          }
+		         if(data.data.list[i].identity==1){
+		          	identity="教师"
+		        }
+		        //注册来源
+		       switch (data.data.list[i].source) {
+		       	case 1:
+		       		asource="平台"
+		       		break;
+		       	case 2:
+		       		asource="微博"
+		       		break;
+		       	case 3:
+		       		asource="微信"
+		       		break;
+		       	case 4:
+		       		asource="QQ"
+		       		break;
+		        case 5:
+		       		asource="社会"
+		       		break;
+		       	case 6:
+		       		asource="学校"
+		       		break;
+		       	default:
+		       		// statements_def
+		       		break;
+		       }
+		       if(data.data.list[i].certificate_num==null){
+                    data.data.list[i].certificate_num="";
+		       }
+		       if(data.data.list[i].email==null){
+                    data.data.list[i].email="";
+		       }
+		       if(data.data.list[i].birthday==null){
+                    data.data.list[i].birthday="";
+		       }
+		         if(data.data.list[i].remark==null){
+                    data.data.list[i].remark="";
+		       }
+	        str +="<tr class='text-c'><td ><input type='checkbox' value='1' name='' data-id="+data.data.list[i].user_id+" class='checkbox'></td><td>"+data.data.list[i].user_name+" </td><td>"+sex+"</td><td>"+data.data.list[i].birthday+"</td><td>"+data.data.list[i].certificate_num+"</td><td >"+data.data.list[i].mobile+"</td><td >"+data.data.list[i].email+"</td><td >"+identity+"</td><td>"+asource+"</td><td>"+vip+"</td><td>"+data.data.list[i].remark+"</td><td class='td-status'><span class='label "+status+" radius'>"+stext+"</span></td></tr>"
+	    }
+	     $("#tbody").html(str);
+	        if($("#check").prop('checked')==true){
+                $(".checkbox").attr('checked','checked')
+             }
+	           /*//点击编辑
+		         $(".edit").click(function(event) {
+		            message_edit('编辑','member_add.html','4','','500');
+		         //根据手机号查询到对应的数据修改用户信息
+	               sessionStorage.setItem("serchuserid",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		    })*/
+       }
+    //获取所有app用户
+    function alluser(){
+    	$.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/user/all',
+	      data:{
+	      	pageNumber:1
+	      },
+	      success: function(data){
+	      	console.log(data);
+	      	applist(data);
+	      	if(data.data.totalPage==1){
+	      		$("#page1").html("");
+	         //分页
+	      	}
+	      	else{
+	      	laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调 
+	             $.ajax({
+	        	  type: 'get',
+			      url: 'http://http://47.100.200.62:8760/v0.1/user/all',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      	
+			      },
+			      success: function(data){
+			       applist(data)
+	         }
+	        	}) 
+	           /* $.getJSON('http://http://47.100.200.62:8760/v0.1/user/all', {pageNumber: e.curr}, function(res){  
+	            	applist(res);
+	            }); */ 
+	        }  
+	    });
+	      	}
+
+		      
+	      }  
+	})
+    }
+   //获取所有学生或者老师
+    function student(vl,n){
+    	$.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/user/findBy',
+	      data:{
+	      	pageNumber:1,
+	      	findBy:vl,
+	      	value:n
+	      },
+	      success: function(data){
+	      	console.log(data);
+	      	applist(data);
+	      	if(data.data.totalPage==1){
+	      		$("#page1").html("");
+	         //分页
+	      	}
+	      	else{
+	      	laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调 
+	           $.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/user/findBy',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr,
+			      	findBy:vl,
+	      	        value:n
+			      },
+			      success: function(data){
+			       applist(data)
+	         }
+	        	})  
+	          /*  $.getJSON('http://47.100.200.62:8760/v0.1/user/findBy', {pageNumber: e.curr,findBy:vl,
+	      	value:n}, function(res){  
+	            	applist(res);
+	            });  */
+	        }  
+	    });
+	      	}
+	      }  
+	})
+    }
+   
+//获取所有大赛
+function competitionlist(data){
+   var status="";
+	        var stext="";
+	        var iconfont=""
+	         var str="";
+	         var sex = ""
+	         var funct2="competition_end(this,'10001')";
+	         $("#count").html(data.data.totalCount);
+	        for(var i=0;i<data.data.list.length;i++){
+	        	//操作小图标的显示
+	        	if(data.data.list[i].comp_status==0){
+	        	status="未开始"; 
+	        	stext="nobegin";
+		        }
+	          if(data.data.list[i].comp_status==1){
+	        	status="报名中"; 
+	        	stext="label-success";
+		        }
+		         if(data.data.list[i].comp_status==2){
+		        	status="初赛"; 
+		        	stext="begin";
+		        	
+		        }
+		         if(data.data.list[i].comp_status==3){
+		        	status="决赛"; 
+		        	stext="final"
+		        	
+		        }
+		         if(data.data.list[i].comp_status==4){
+		        	status="复赛"; 
+		        	stext="repeat";
+		        	
+		        }
+		        if(data.data.list[i].comp_status==5){
+		        	status="已结束"; 
+		        	stext="label-default";
+		        }
+		        if(data.data.list[i].comp_status==9){
+		        	status="已终止"; 
+		        	stext="end";
+		        }
+	        	 str+="<tr class='text-c'><td><input type='radio' value='1' name='aa' data-id="+data.data.list[i].competition_id+" class='radio'></td><td >"+data.data.list[i].comp_name+"</td><td>"+data.data.list[i].compImgURL+"</td><td>"+data.data.list[i].sponsor+"</td><td>"+data.data.list[i].organizer+"</td><td>"+data.data.list[i].begin_date+"</td><td>"+data.data.list[i].end_date+"</td><td>"+data.data.list[i].comp_website+"</td><td>"+data.data.list[i].join_count+"</td><td>"+data.data.list[i].works_count+"</td><td class='td-status'><span class='label "+stext+" radius'>"+status+"</span></td></tr>"
+	        }
+	        $("#tbody").html(str);
+	        //点击编辑
+		         $(".edit").click(function(event) {
+		         	sessionStorage.setItem("serchcompition",$(this).parent().siblings().eq(0).children().attr("data-id"));
+		            competition_edit('编辑','competition_add.html','4','','500');
+		            
+		    })
+      }
+      function compuser(){
+      	$.ajax({
+	      type: 'get',
+	       headers:{"Authorization":getCookie('token')},
+	      url: 'http://47.100.200.62:8760/v0.1/competition/page',
+	      data:{
+	      	pageNumber:1
+	      },
+	      success: function(data){
+	      
+	      	competitionlist(data)
+	     if(data.data.totalPage==1||data.data.totalPage==0){
+		 	$("#page1").html("");
+		 }
+		 else{
+	         //分页
+	         laypage({  
+	        cont: 'page1', 
+	        pages: data.data.totalPage, //通过后台拿到的总页数  
+	        curr: 1, //初始化当前页  
+	        jump: function(e){ //触发分页后的回调 
+	            $.ajax({
+	        	  type: 'get',
+			      url: 'http://47.100.200.62:8760/v0.1/competition/page',
+			      headers:{"Authorization":getCookie('token')},
+			      data:{
+			      	pageNumber:e.curr
+			      	
+			      },
+			      success: function(data){
+			       competitionlist(data)
+	         }
+	        	})   
+	           /* $.getJSON('http://47.100.200.62:8760/v0.1/competition/page', {pageNumber: e.curr}, function(res){  
+	            	competitionlist(res);
+	            }); */ 
+	        }  
+	       });
+		}	      
+	 }  
+	})   
+      }
+    //获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}    
+</script> 
+</body>
+</html>

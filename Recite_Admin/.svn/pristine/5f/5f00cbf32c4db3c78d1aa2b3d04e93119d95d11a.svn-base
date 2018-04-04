@@ -1,0 +1,288 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增范文音频</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+</head>
+<body>
+<article class="page-container">
+	<form  class="form form-horizontal" id="form1" enctype="multipart/form-data" name="form1">
+	     <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">选择音频：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			   <span>
+			    类型-
+					<select id="recortype" style="width:80px">
+					    <option value="0">请选择</option>
+					    <option value="2">读本</option>
+					    <option value="3">课本</option>
+					    <option value="4">名家名篇</option>
+					   <!--  <option value="1">名家名篇</option> -->
+					</select>
+				</span>
+				<span style="padding:0 20px" >
+			     列表-
+					<select  style="width:120px;overflow: scroll" id="list" >
+					  <option value="">请选择</option>
+					</select>
+				</span>
+				<span style="padding:0 20px" >
+			     音频-
+					<select  style="width:120px;overflow: scroll" id="music" >
+					  <option value="">请选择</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius isnull" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" id="btn">
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+//大赛范文id用于新增
+ var model = sessionStorage.getItem('model');
+//类型改变或取所有范文信息
+$("#recortype").change(function(){
+   if(model==1){
+   	hasmusic('specialized')//专栏
+   }
+   if(model==2){
+   	hasmusic('selected')//精选
+   }
+    if(model==3){
+      hasmusic('recommend')//推荐
+   }
+})
+function hasmusic(modele){
+  	if($("#recortype").val()==0){
+		 $("#list").html("<option value='0'>请选择</option>")
+		 $("#music").html("<option value='0'>请选择</option>")
+	}
+	if($("#recortype").val()==2){
+		 $("#list").html("");
+		 $("#music").html("");
+		$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/textbook/allbook",
+		success:function(data){
+			console.log(data);
+			for(var i=0;i<data.data.length;i++){
+		  $("#list").append("<option value="+data.data[i].textbookId+">"+data.data[i].textbookName+"</option>")
+		}
+		 music(modele)
+		}
+	})
+	}
+	if($("#recortype").val()==3){
+		 $("#list").html("");
+		  $("#music").html("");
+		$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/classbook/allbook",
+		success:function(data){
+			console.log(data);
+			for(var i=0;i<data.data.length;i++){
+		  $("#list").append("<option value="+data.data[i].classbookId+">"+data.data[i].classbookName+"</option>")
+		}
+          music(modele)
+		}
+	})
+	}
+		if($("#recortype").val()==4){
+		  $("#list").html("");
+		  $("#music").html("");
+		$.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/star/status/all",//名家名篇 
+		success:function(data){
+			console.log(data);
+			for(var i=0;i<data.data.length;i++){
+		  $("#list").append("<option value="+data.data[i].starId+">"+data.data[i].starName+"</option>")
+		}
+		   music(modele)
+		 
+		}
+	})	
+	}
+}
+$("#list").change(function(){
+	$("#music").html("");
+    if(model==1){
+   	 music('specialized')
+   }
+   if(model==2){
+   	music('selected')
+   }
+    if(model==3){
+      music('recommend')
+   }
+})
+function music(aval){
+		  $.ajax({
+		type:"get",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/audio/relation/all/sortBy",//所有音频
+		data:{
+			relationId:$("#list").val(),
+			sortBy:aval
+		},
+		success:function(data){
+			console.log(data);
+			for(var i=0;i<data.data.length;i++){
+		  $("#music").append("<option value="+data.data[i].audioId+">"+data.data[i].audioTitle+"</option>")
+		}
+		}
+	})
+	}
+//新增范文音频
+$("#btn").click(function(){
+   if(model==1){
+    specialized();
+   }
+    if(model==2){
+     selected();
+   }
+    if(model==3){
+     modelmusic();
+   }
+
+})
+	function modelmusic(){
+			$.ajax({
+		type:"post",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/audio/sort/update",
+		data:{
+			audioId:$("#music").val(),
+			recommend:1
+		},
+		success:function(data){
+			if(data.success==true){
+		           layer.msg("添加成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		}
+
+	})
+	}
+   function selected(){
+			$.ajax({
+		type:"post",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/audio/sort/update",
+		data:{
+			audioId:$("#music").val(),
+			selected:1
+		},
+		success:function(data){
+			if(data.success==true){
+		           layer.msg("添加成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		}
+
+	})
+	}
+	function specialized(){
+			$.ajax({
+		type:"post",
+		 headers:{"Authorization":getCookie('token')},
+		url:"http://47.100.200.62:8760/v0.1/audio/sort/update",
+		data:{
+			audioId:$("#music").val(),
+			specialized:1
+		},
+		success:function(data){
+			if(data.success==true){
+		           layer.msg("添加成功",{icon:1,time:500})
+		              setTimeout(function(){
+		                window.parent.location.reload();
+		  	 		   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                 parent.layer.close(index); //再执行关闭
+		               //刷新原页面
+			 	            },1000)
+		        }
+		       else {
+		         layer.msg(data.msg,{icon:1,time:1000});
+		       }
+		}
+
+	})
+	}
+	//获取cookie
+function getCookie(_name)
+{
+  var cookie = document.cookie;
+  var arr = cookie.split("; ");//注意空格，容易出错。。。。。
+  for(var i=0;i<arr.length;i++)
+  {
+    var newarr = arr[i].split("=");
+    
+    if(newarr[0]== _name)
+    {
+      return newarr[1];
+      
+    }
+  }
+}
+</script> 
+
+</body>
+</html>
